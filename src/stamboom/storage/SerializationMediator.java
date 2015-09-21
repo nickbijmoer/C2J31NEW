@@ -4,10 +4,19 @@
  */
 package stamboom.storage;
 
+import com.sun.xml.internal.ws.wsdl.writer.document.OpenAtts;
+import java.awt.FileDialog;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import stamboom.domain.Administratie;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 public class SerializationMediator implements IStorageMediator{
 
@@ -33,7 +42,23 @@ public class SerializationMediator implements IStorageMediator{
         }
         
         // todo opgave 2
-        return null;
+        Administratie admin = null;
+        try {
+            FileInputStream fis = new FileInputStream(props.getProperty("file"));
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            admin = (Administratie) ois.readObject();
+            ois.close();
+            fis.close();  
+        } 
+        catch(IOException ex){
+           System.out.printf("Cannot perform output.", ex.toString());
+           
+        } 
+        catch (ClassNotFoundException ex) {
+            Logger.getLogger(SerializationMediator.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.printf("Class not found");
+        }
+        return admin;
     }
 
     @Override
@@ -43,7 +68,15 @@ public class SerializationMediator implements IStorageMediator{
         }
 
         // todo opgave 2
-  
+        try {
+            FileOutputStream fos = new FileOutputStream(props.getProperty("file"));
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(admin);
+            oos.close();
+            fos.close();   
+        } catch(IOException ex){
+           System.out.printf("Cannot perform output.", ex.toString());
+        }
     }
 
     /**
