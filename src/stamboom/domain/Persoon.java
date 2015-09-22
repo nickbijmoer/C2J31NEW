@@ -121,7 +121,7 @@ public class Persoon {
     public String getNaam() {
         //todo opgave 1
         String naam;
-        if(tussenvoegsel == null)
+        if(tussenvoegsel.equalsIgnoreCase(""))
         {
         naam = getInitialen()  + " " + achternaam;
         }
@@ -257,12 +257,12 @@ public class Persoon {
      */
     public Gezin heeftOngehuwdGezinMet(Persoon andereOuder) {
         //todo opgave 1
+       
        for(Gezin gezin : alsOuderBetrokkenIn)
        {
-       if(((gezin.getOuder1() == this && gezin.getOuder2() == andereOuder) || (gezin.getOuder1() == andereOuder && gezin.getOuder2() == this)) && gezin.isOngehuwd())
-       {
+       
         return gezin;
-       }
+       
        }
         
        

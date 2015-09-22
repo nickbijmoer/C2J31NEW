@@ -65,8 +65,7 @@ public class Gezin {
         this.ouder1 = ouder1;
         this.ouder2 = ouder2;
         this.kinderen = new ArrayList<>();
-        this.huwelijksdatum = null;
-        this.scheidingsdatum = null;
+      
     }
 
     // ********methoden*****************************************
