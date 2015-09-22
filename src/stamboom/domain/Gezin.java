@@ -1,6 +1,8 @@
 package stamboom.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.SimpleFormatter;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.collections.FXCollections;
@@ -186,9 +188,12 @@ public class Gezin {
     public String beschrijving() {
         
         //todo opgave 1
-        String beschrijving = nr + " " + ouder1.getNaam() + " " + ouder2.getNaam() + " " + getHuwelijksdatum();
+        SimpleDateFormat huw = new SimpleDateFormat("d-M-yyyy");
+       
         
-        if(kinderen != null)
+        String beschrijving = nr + " " + ouder1.getNaam() + " met " + ouder2.getNaam() + " " +  huw.format(huwelijksdatum.getTime());;
+        
+        if(kinderen.size() > 0)
         {
             beschrijving += "; kinderen:";
             
@@ -197,7 +202,7 @@ public class Gezin {
               beschrijving += " - " + kind.getNaam();
             }
         }
-         return null;
+         return beschrijving;
     }
 
     /**
