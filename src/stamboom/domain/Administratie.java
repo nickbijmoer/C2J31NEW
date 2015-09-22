@@ -369,7 +369,7 @@ public class Administratie implements java.io.Serializable{
             
         for(Persoon persoon : personen)
         {
-            if(persoon.getVoornamen() == Voornamen && persoon.getAchternaam() == anaam && persoon.getTussenvoegsel() == tvoegsel && persoon.getGebDat() == gebdat && persoon.getGebPlaats() == gebplaats)
+            if(persoon.getVoornamen().equalsIgnoreCase(Voornamen)  && persoon.getAchternaam().equalsIgnoreCase(anaam) && persoon.getTussenvoegsel().equalsIgnoreCase(tvoegsel) && persoon.getGebDat().equals(gebdat)  && persoon.getGebPlaats().equalsIgnoreCase(gebplaats))
             {
                 return persoon;
             }
