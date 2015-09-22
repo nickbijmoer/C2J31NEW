@@ -4,7 +4,7 @@
  */
 package stamboom.storage;
 
-import com.sun.xml.internal.ws.wsdl.writer.document.OpenAtts;
+
 import java.awt.FileDialog;
 import java.io.File;
 import java.io.FileInputStream;
