@@ -358,19 +358,35 @@ public class Persoon {
      */
     public int afmetingStamboom() {
         //todo opgave 2
-        int aantalpersonen = 1;
-        
-        if(ouderlijkGezin.getOuder1() != null)
-        {
-        aantalpersonen++;
-        ouderlijkGezin.getOuder1().afmetingStamboom();    
+          //todo opgave 2
+        int aantalLeden = 1;
+        if (this.ouderlijkGezin != null) {
+            aantalLeden += recursiefStamboom(this.ouderlijkGezin);
         }
-        if(ouderlijkGezin.getOuder2() != null)
-        {
-        aantalpersonen++;
-        ouderlijkGezin.getOuder2().afmetingStamboom();
+        return aantalLeden;
+    }
+
+    public int recursiefStamboom(Gezin ouderlijkGezin) {
+        int aantalLeden = 0;
+
+        if (ouderlijkGezin.getOuder1() != null) {
+            if (ouderlijkGezin.getOuder1().getOuderlijkGezin() != null) {
+                aantalLeden += recursiefStamboom(ouderlijkGezin.getOuder1().getOuderlijkGezin()) + 1;
+            } else {
+                aantalLeden += 1;
+            }
         }
-        return aantalpersonen;
+
+        if (ouderlijkGezin.getOuder2() != null) {
+            if (ouderlijkGezin.getOuder2().getOuderlijkGezin() != null) {
+                aantalLeden += recursiefStamboom(ouderlijkGezin.getOuder2().getOuderlijkGezin()) + 1;
+            } else {
+                aantalLeden += 1;
+            }
+        }
+
+        return aantalLeden;
+    
     }
 
     /**
