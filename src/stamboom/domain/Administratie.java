@@ -164,7 +164,7 @@ public class Administratie implements java.io.Serializable{
         if (ouder2 != null && ouder2.getGebDat().compareTo(Calendar.getInstance()) > 0) {
             return null;
         }
-
+       
         Calendar nu = Calendar.getInstance();
         if (ouder1.isGetrouwdOp(nu) || (ouder2 != null
                 && ouder2.isGetrouwdOp(nu))
@@ -250,41 +250,27 @@ public class Administratie implements java.io.Serializable{
      */
     public Gezin addHuwelijk(Persoon ouder1, Persoon ouder2, Calendar huwdatum) {
         //todo opgave 1
-        if(ouder1 == ouder2)
-        {
-            return null;
-        }
-        
-        if (ouder1.getGebDat().compareTo(Calendar.getInstance()) > 0) {
-            return null;
-        }
-        if (ouder2 != null && ouder2.getGebDat().compareTo(Calendar.getInstance()) > 0) {
-            return null;
-        }
+        Gezin gezin = null;
+        if (ouder1 != ouder2 && ouder1.kanTrouwenOp(huwdatum) && ouder2.kanTrouwenOp(huwdatum)) {
+            for (Persoon p : personen) {
+                if (p.equals(ouder1)) {
+                    gezin = ouder1.heeftOngehuwdGezinMet(ouder2);
+                    if (gezin != null) {
+                        ouder1.heeftOngehuwdGezinMet(ouder2).setHuwelijk(huwdatum);
+                    } else {
+                        gezin = new Gezin(this.nextGezinsNr, ouder1, ouder2);
+                        gezin.setHuwelijk(huwdatum);
 
-        Calendar nu = Calendar.getInstance();
-        if (ouder1.isGetrouwdOp(nu) || (ouder2 != null && ouder2.isGetrouwdOp(nu))) {
-            return null;
-        }
-        
-        if(ouder1.heeftOngehuwdGezinMet(ouder2) != null)
-        {
-            for(Gezin gezin : gezinnen)
-            {
-                if(gezin.getOuder1() == ouder1 && gezin.getOuder2() == ouder2 || gezin.getOuder1() == ouder2 && gezin.getOuder2() == ouder1)
-                {
-                    gezin.setHuwelijk(huwdatum);
-                    return gezin;
+                        ouder1.wordtOuderIn(gezin);
+                        ouder2.wordtOuderIn(gezin);
+
+                        this.gezinnen.add(gezin);
+                        nextGezinsNr++;
+                    }
                 }
             }
         }
-        else{
-            Gezin newGezin = new Gezin(nextGezinsNr, ouder1, ouder2);
-            newGezin.setHuwelijk(huwdatum);
-            nextGezinsNr++;
-            return newGezin;
-        }
-        return null;
+        return gezin;
     }
 
     /**
