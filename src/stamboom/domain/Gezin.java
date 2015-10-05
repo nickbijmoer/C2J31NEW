@@ -188,21 +188,18 @@ public class Gezin {
     public String beschrijving() {
         
         //todo opgave 1
-        SimpleDateFormat huw = new SimpleDateFormat("d-M-yyyy");
-       
-        
-        String beschrijving = nr + " " + ouder1.getNaam() + " met " + ouder2.getNaam() + " " +  huw.format(huwelijksdatum.getTime());;
-        
-        if(kinderen.size() > 0)
-        {
-            beschrijving += "; kinderen:";
-            
-            for(Persoon kind : kinderen)
-            {
-              beschrijving += " - " + kind.getNaam();
+        String beschrijvingText = nr + " "+ ouder1.getNaam() + " met " + ouder2.getNaam();
+        if(huwelijksdatum != null){
+            SimpleDateFormat huwedate = new SimpleDateFormat("d-M-yyyy");
+            beschrijvingText += " " + huwedate.format(huwelijksdatum.getTime());
+        }
+        if(this.kinderen.size() >=  1){
+            beschrijvingText += "; kinderen:";
+            for (Persoon kinderen1 : this.kinderen) {
+                beschrijvingText += " -" + kinderen1.getVoornamen();
             }
         }
-         return beschrijving;
+        return beschrijvingText;
     }
 
     /**

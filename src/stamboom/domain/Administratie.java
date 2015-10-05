@@ -1,5 +1,6 @@
 package stamboom.domain;
 
+
 import java.util.*;
 
 public class Administratie implements java.io.Serializable{
@@ -52,6 +53,14 @@ public class Administratie implements java.io.Serializable{
             String tvoegsel, Calendar gebdat,
             String gebplaats, Gezin ouderlijkGezin) {
 
+        List<String> voornamenVal = new ArrayList<String>();
+        String[] voornamen;
+        String tussenvoegsel = tvoegsel;
+        
+        for (int i = 0; i < vnamen.length; i++) {
+            CapitalizeString(vnamen[i]);
+            voornamenVal.add(CapitalizeString(vnamen[i]));
+        }
         if (vnamen.length == 0) {
             throw new IllegalArgumentException("ten minste 1 voornaam");
         }
@@ -61,7 +70,8 @@ public class Administratie implements java.io.Serializable{
             }
             
         }
-
+        
+     
         if (anaam.trim().isEmpty()) {
             throw new IllegalArgumentException("lege achternaam is niet toegestaan");
         }
@@ -116,14 +126,14 @@ public class Administratie implements java.io.Serializable{
         {
             for(Persoon persoon : personen)
             {
-                if(persoon.getNaam() == naam && persoon.getGebDat() == gebdat && persoon.getGebPlaats() == gebplaats)
+                if(persoon.getInitialen().equalsIgnoreCase(setInitialen(vnamen))  && persoon.getGebDat().equals(gebdat)  && persoon.getGebPlaats().equalsIgnoreCase(gebplaats) && persoon.getTussenvoegsel().equalsIgnoreCase(tussenvoegsel))
                 {
                     return null;
                 }
             }
         }
-        
-            Persoon newPersoon = new Persoon(nextPersNr, vnamen, anaam, tvoegsel, gebdat, gebplaats, geslacht, ouderlijkGezin);
+            voornamen = voornamenVal.toArray(new String[0]);
+            Persoon newPersoon = new Persoon(nextPersNr, voornamen, anaam, tvoegsel, gebdat, gebplaats, geslacht, ouderlijkGezin);
             nextPersNr++;
             personen.add(newPersoon);
             return newPersoon;
@@ -338,7 +348,9 @@ public class Administratie implements java.io.Serializable{
      */
     public List<Persoon> getPersonen() {
         // todo opgave 1
-        return personen;
+        List<Persoon> Personen = new ArrayList<>();
+        Personen.addAll(this.personen);
+        return Personen;
     }
 
     /**
@@ -369,7 +381,7 @@ public class Administratie implements java.io.Serializable{
             
         for(Persoon persoon : personen)
         {
-            if(persoon.getVoornamen().equalsIgnoreCase(Voornamen)  && persoon.getAchternaam().equalsIgnoreCase(anaam) && persoon.getTussenvoegsel().equalsIgnoreCase(tvoegsel) && persoon.getGebDat().equals(gebdat)  && persoon.getGebPlaats().equalsIgnoreCase(gebplaats))
+            if(persoon.getInitialen().equalsIgnoreCase(setInitialen(vnamen))  && persoon.getAchternaam().equalsIgnoreCase(anaam) && persoon.getTussenvoegsel().equalsIgnoreCase(tvoegsel) && persoon.getGebDat().equals(gebdat)  && persoon.getGebPlaats().equalsIgnoreCase(gebplaats))
             {
                 return persoon;
             }
@@ -384,6 +396,16 @@ public class Administratie implements java.io.Serializable{
     public List<Gezin> getGezinnen() {
         return null;
     }
+    
+    public String setInitialen(String[] voornamen) {
+        //todo opgave 1
+        String Initialen = "";
+
+        for (int i = 0; i < voornamen.length; i++) {
+            Initialen += voornamen[i].toUpperCase().charAt(0) + ".";
+        }
+        return Initialen;
+    }
 
     /**
      *
@@ -397,5 +419,24 @@ public class Administratie implements java.io.Serializable{
             return gezinnen.get(gezinsNr - 1);
         }
         return null;
+    }
+
+    
+    public String CapitalizeString(String str) {
+        String tempVNaam = str.toLowerCase();
+        tempVNaam = tempVNaam.substring(0, 1).toUpperCase() + tempVNaam.substring(1, tempVNaam.length());
+
+        while (tempVNaam.contains("  ")) {
+            tempVNaam = tempVNaam.replace("  ", " ");
+        }
+
+        if (tempVNaam.startsWith(" ")) {
+            tempVNaam = tempVNaam.substring(1, tempVNaam.length());
+        }
+
+        if (tempVNaam.endsWith(" ")) {
+            tempVNaam = tempVNaam.substring(0, tempVNaam.length() - 1);
+        }
+        return tempVNaam;
     }
 }
