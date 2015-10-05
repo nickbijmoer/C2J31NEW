@@ -258,16 +258,36 @@ public class Persoon {
     public Gezin heeftOngehuwdGezinMet(Persoon andereOuder) {
         //todo opgave 1
        
-       for(Gezin gezin : alsOuderBetrokkenIn)
-       {
-       
-        return gezin;
-       
-       }
+//       for(Gezin gezin : alsOuderBetrokkenIn)
+//       {
+//       
+//        return gezin;
+//       
+//       }
+//        
+//       
+//        return null;
         
-       
+        if (andereOuder != null) {
+            for (Gezin g : alsOuderBetrokkenIn) {
+                if ((g.getOuder1().equals(andereOuder) || (g.getOuder2() != null && g.getOuder2().equals(andereOuder))) && g.isOngehuwd()) {
+                    return g;
+                }
+            }
+        } else {
+            for (Gezin g : alsOuderBetrokkenIn) {
+                Persoon p = null;
+                if (g.getOuder1().equals(this)) {
+                    p = g.getOuder2();
+                } else if (g.getOuder2().equals(this)) {
+                    p = g.getOuder1();
+                }
+                if (p != null) {
+                    return p.heeftOngehuwdGezinMet(this);
+                }
+            }
+        }
         return null;
-        
     }
 
     /**
