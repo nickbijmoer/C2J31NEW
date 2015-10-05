@@ -1,5 +1,6 @@
 package stamboom.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -7,7 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import stamboom.util.StringUtilities;
 
-public class Persoon {
+public class Persoon implements Serializable{
 
     // ********datavelden**************************************
     private final int nr;
@@ -19,6 +20,9 @@ public class Persoon {
     private Gezin ouderlijkGezin;
     private final List<Gezin> alsOuderBetrokkenIn;
     private final Geslacht geslacht;
+    
+    private List<PersoonMetGeneratie> pmg = new ArrayList<PersoonMetGeneratie>();
+
 
     // ********constructoren***********************************
     /**
@@ -357,8 +361,7 @@ public class Persoon {
      * grootouders etc); de persoon zelf telt ook mee
      */
     public int afmetingStamboom() {
-        //todo opgave 2
-          //todo opgave 2
+           //todo opgave 2
         int aantalLeden = 1;
         if (this.ouderlijkGezin != null) {
             aantalLeden += recursiefStamboom(this.ouderlijkGezin);
@@ -402,21 +405,16 @@ public class Persoon {
      * toegewezen;
      */
     void voegJouwStamboomToe(ArrayList<PersoonMetGeneratie> lijst, int g) {
-        //todo opgave 2
-        PersoonMetGeneratie persoon = new  PersoonMetGeneratie(Persoon.this.toString(), g);
-        lijst.add(persoon);
-        
-        if(ouderlijkGezin.getOuder1() != null)
-        {
-        g = g + 1;
-        ouderlijkGezin.getOuder1().voegJouwStamboomToe(lijst, g);
+         //todo opgave 2
+        lijst = new ArrayList<PersoonMetGeneratie>();
+        g = 0;
+        lijst.add(new PersoonMetGeneratie(this.standaardgegevens(), g));
+
+        if (this.ouderlijkGezin != null) {
+            lijst.addAll(b(this.ouderlijkGezin, g));
         }
-        if(ouderlijkGezin.getOuder2() != null)
-        {
-        g = g + 1;
-        ouderlijkGezin.getOuder2().voegJouwStamboomToe(lijst, g);
-        }
-        
+
+        this.pmg = lijst;
     }
 
     /**
@@ -442,25 +440,55 @@ public class Persoon {
      * ____M.A.C. Hagel (VROUW) 12-0-1943<br>
      * ____J.A. Pieterse (MAN) 4-8-1923<br>
      */
-    public String stamboomAlsString() {
-        
-        //todo opgave 2
+        public String stamboomAlsString() {
         StringBuilder builder = new StringBuilder();
-        ArrayList<PersoonMetGeneratie> stamboomlijst = new ArrayList<>();
-                voegJouwStamboomToe(stamboomlijst, 0);
-         
-        for(PersoonMetGeneratie persoon : stamboomlijst)
-        {
-            for(int generatie = 0; generatie < persoon.getGeneratie(); generatie++)
-            {
-               builder.append(' ');
-            }
-            builder.append(persoon.getPersoonsgegevens());
-            builder.append(System.getProperty("line.separator"));
-            
-        }
-        
+        //todo opgave 2
 
+       voegJouwStamboomToe(null, 0);
+        
+        String totalS = "";
+        
+        for(PersoonMetGeneratie pmg : this.pmg)
+        {
+            String s = pmg.getPersoonsgegevens();
+            for(int i = 0; i < pmg.getGeneratie(); i++)
+            {
+                s = "  " + s; 
+            }
+            totalS += s + System.getProperty("line.separator");
+        }
+        builder.append(totalS);
+        
         return builder.toString();
+    }
+    public ArrayList<PersoonMetGeneratie> b(Gezin ouderlijkGezin, int generatie)
+    {
+        int count = 0;
+        generatie += 1;
+        ArrayList<PersoonMetGeneratie> localpmg = new ArrayList<PersoonMetGeneratie>();
+        
+        if(ouderlijkGezin.getOuder1() != null)
+            if(ouderlijkGezin.getOuder1().getOuderlijkGezin() != null)
+            {
+                localpmg.add(new PersoonMetGeneratie(ouderlijkGezin.getOuder1().standaardgegevens(), generatie));
+                localpmg.addAll(b( ouderlijkGezin.getOuder1().getOuderlijkGezin(), generatie));
+            }
+            else 
+            {
+                localpmg.add(new PersoonMetGeneratie(ouderlijkGezin.getOuder1().standaardgegevens(), generatie));
+            }
+        
+        if(ouderlijkGezin.getOuder2() != null)
+            if(ouderlijkGezin.getOuder2().getOuderlijkGezin() != null)
+            {
+                localpmg.add(new PersoonMetGeneratie(ouderlijkGezin.getOuder2().standaardgegevens(), generatie));
+                localpmg.addAll(b( ouderlijkGezin.getOuder2().getOuderlijkGezin(), generatie));
+            }
+            else 
+            {
+                localpmg.add(new PersoonMetGeneratie(ouderlijkGezin.getOuder2().standaardgegevens(), generatie));
+            }
+        
+        return localpmg;
     }
 }
