@@ -51,7 +51,7 @@ public class StamboomFXController extends StamboomController implements Initiali
     @FXML ListView lvAlsOuderBetrokkenBij;
     @FXML Button btStamboom;
     
-    //INVOER PERSOONIN
+    //INVOER PERSOON
     @FXML TextField tfNrIN;
     @FXML TextField tfVoornaamIN;
     @FXML TextField tfTussenIN;
@@ -63,6 +63,14 @@ public class StamboomFXController extends StamboomController implements Initiali
     @FXML ListView lvBetrokkenIn;
     @FXML Button btnOKPersoon;
     @FXML Button btnCancelPersoon;
+    
+    //GEZIN
+    @FXML ComboBox cbGezin;
+    @FXML  Label lbOuder1;
+    @FXML Label lbOuder2;
+    @FXML Label lbHuwelijk;
+    @FXML Label lbScheiding;
+    @FXML ListView lvKinderen;
 
     //INVOER GEZIN
     @FXML ComboBox cbOuder1Invoer;
@@ -320,6 +328,10 @@ public class StamboomFXController extends StamboomController implements Initiali
     
     private void clearTabGezinInvoer() {
         //todo opgave 3
+        cbOuder1Invoer.getSelectionModel().clearSelection();
+        cbOuder2Invoer.getSelectionModel().clearSelection();
+        tfHuwelijkInvoer.clear();
+        tfScheidingInvoer.clear();
     
     }
 
@@ -339,7 +351,12 @@ public class StamboomFXController extends StamboomController implements Initiali
     
     private void clearTabGezin() {
         // todo opgave 3
-       
+        cbGezin.getSelectionModel().clearSelection();
+        lbOuder1.setText("");
+        lbOuder2.setText("");
+        lbHuwelijk.setText("");
+        lbScheiding.setText("");
+        lvKinderen.setItems(FXCollections.emptyObservableList());
     }
 
     private void showDialog(String type, String message) {
