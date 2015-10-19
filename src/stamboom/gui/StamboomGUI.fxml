@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" minWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stamboom.gui.StamboomFXController">
+<AnchorPane id="AnchorPane" minWidth="700.0" prefHeight="395.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="stamboom.gui.StamboomFXController">
     <children>
         <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
@@ -46,7 +46,7 @@
                                                 </BorderPane>
                                                 <AnchorPane>
                                                     <children>
-                                                        <GridPane gridLinesVisible="false" hgap="4.0" vgap="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <GridPane gridLinesVisible="false" hgap="4.0" prefHeight="286.0" prefWidth="428.0" vgap="2.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                             <children>
                                                                 <Label alignment="CENTER_RIGHT" graphicTextGap="4.0" prefWidth="-1.0" text="Nr" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0">
                                                                     <GridPane.margin>
@@ -99,6 +99,8 @@
                                                                 <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                                                             </rowConstraints>
                                                         </GridPane>
+                                          <Button layoutX="349.0" layoutY="277.0" mnemonicParsing="false" text="OK" />
+                                          <Button layoutX="275.0" layoutY="277.0" mnemonicParsing="false" text="Cancel" />
                                                     </children>
                                                 </AnchorPane>
                                             </items>
