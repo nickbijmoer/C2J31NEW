@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import stamboom.controller.StamboomController;
+import stamboom.domain.Administratie;
+import stamboom.domain.Geslacht;
 import stamboom.domain.Gezin;
 import stamboom.domain.Persoon;
 import stamboom.util.StringUtilities;
@@ -48,6 +50,19 @@ public class StamboomFXController extends StamboomController implements Initiali
     @FXML ComboBox cbOuderlijkGezin;
     @FXML ListView lvAlsOuderBetrokkenBij;
     @FXML Button btStamboom;
+    
+    //INVOER PERSOONIN
+    @FXML TextField tfNrIN;
+    @FXML TextField tfVoornaamIN;
+    @FXML TextField tfTussenIN;
+    @FXML TextField tfAchternaamIn;
+    @FXML TextField tfGeslachtIn;
+    @FXML TextField tfGebDatIn;
+    @FXML TextField tfGebPlaatsIn;
+    @FXML ComboBox cbOuderlijkIn;
+    @FXML ListView lvBetrokkenIn;
+    @FXML Button btnOKPersoon;
+    @FXML Button btnCancelPersoon;
 
     //INVOER GEZIN
     @FXML ComboBox cbOuder1Invoer;
@@ -56,7 +71,9 @@ public class StamboomFXController extends StamboomController implements Initiali
     @FXML TextField tfScheidingInvoer;
     @FXML Button btOKGezinInvoer;
     @FXML Button btCancelGezinInvoer;
+    
 
+    private Administratie admin;
     //opgave 4
     private boolean withDatabase;
 
@@ -138,12 +155,52 @@ public class StamboomFXController extends StamboomController implements Initiali
 
     public void cancelPersoonInvoer(Event evt) {
         // todo opgave 3
-
+        clearTabPersoonInvoer();
     }
 
     public void okPersoonInvoer(Event evt) {
         // todo opgave 3
-
+       String geslacht;
+       if(tfGeslachtIn.getText().equalsIgnoreCase("MAN"))
+       {
+           geslacht = "MAN";
+       }
+       else if(tfGeslachtIn.getText().equalsIgnoreCase("VROUW"))
+       {
+           geslacht = "VROUW";
+       }
+       else
+       {
+           throw new IllegalArgumentException("Geslacht onbekend."); 
+       }
+       
+       String[] vnamen = null;
+       String temp = null;
+       int names = 0;
+       for(int i = 0; i < tfVoornaamIN.getText().length(); i++)
+       {
+           if (tfVoornaamIN.getText().substring(i, 2).equalsIgnoreCase(" "))
+           {
+               vnamen[names] = temp;
+               names++;
+           }
+           else
+           {
+               temp = temp + tfVoornaamIN.getText().substring(i, 2);
+           }
+       }
+       
+       Calendar GebDatum;
+       try
+       {
+           GebDatum = StringUtilities.datum(tfGebDatIn.getText());
+       } catch(IllegalArgumentException exc){
+           showDialog("Warning", "Geboortedatum :" + exc.getMessage());
+           return;
+       }
+       
+       admin.addPersoon(Geslacht.valueOf(geslacht), vnamen, tfAchternaamIn.getText(), tfTussenIN.getText(), GebDatum, tfGebPlaatsIn.getText(), (Gezin) lvBetrokkenIn.getItems());
+       clearTabPersoonInvoer();
     }
 
     public void okGezinInvoer(Event evt) {
@@ -249,7 +306,15 @@ public class StamboomFXController extends StamboomController implements Initiali
     
     private void clearTabPersoonInvoer() {
         //todo opgave 3
-        
+        tfNrIN.clear();
+        tfVoornaamIN.clear();
+        tfTussenIN.clear();
+        tfAchternaamIn.clear();
+        tfGeslachtIn.clear();
+        tfGebDatIn.clear();
+        tfGebPlaatsIn.clear();
+        cbOuderlijkIn.getSelectionModel().clearSelection();
+        lvBetrokkenIn.setItems(FXCollections.emptyObservableList());
     }
 
     
