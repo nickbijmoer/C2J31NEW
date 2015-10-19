@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import stamboom.util.StringUtilities;
 
 public class Persoon implements Serializable{
@@ -19,12 +21,13 @@ public class Persoon implements Serializable{
     private final String gebPlaats;
     private Gezin ouderlijkGezin;
     private final List<Gezin> alsOuderBetrokkenIn;
+    private ObservableList<Gezin> ObservableAlsOuderBetrokkenIn;
     private final Geslacht geslacht;
     
     private List<PersoonMetGeneratie> pmg = new ArrayList<PersoonMetGeneratie>();
 
 
-    // ********constructoren***********************************
+    // ********constructoren***********************************    
     /**
      * er wordt een persoon gecreeerd met persoonsnummer persNr en met als
      * voornamen vnamen, achternaam anaam, tussenvoegsel tvoegsel, geboortedatum
@@ -58,6 +61,7 @@ public class Persoon implements Serializable{
         this.gebPlaats = gebplaats;
         this.geslacht = g;
         this.alsOuderBetrokkenIn = new ArrayList<>();
+        SetItems((ObservableList<Gezin>) this.alsOuderBetrokkenIn);
         
         if(ouderlijkGezin != null)
         {
@@ -68,6 +72,17 @@ public class Persoon implements Serializable{
     }
 
     // ********methoden****************************************
+    public void SetItems(ObservableList<Gezin> Gezinnen)
+    {
+        this.ObservableAlsOuderBetrokkenIn = Gezinnen;
+    }
+    
+    public ObservableList<Gezin> GetItems()
+    {
+        return (ObservableList<Gezin>)
+                FXCollections.unmodifiableObservableList(ObservableAlsOuderBetrokkenIn);
+    }
+    
     /**
      * @return de achternaam van deze persoon
      */

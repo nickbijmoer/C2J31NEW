@@ -16,6 +16,7 @@ public class Gezin {
     private final Persoon ouder1;
     private final Persoon ouder2;
     private final List<Persoon> kinderen;
+    private ObservableList<Persoon> observableKinderen;
     /**
      * kan onbekend zijn (dan is het een ongehuwd gezin):
      */
@@ -67,10 +68,22 @@ public class Gezin {
         this.ouder1 = ouder1;
         this.ouder2 = ouder2;
         this.kinderen = new ArrayList<>();
+        SetItems((ObservableList<Persoon>) kinderen);
       
     }
 
     // ********methoden*****************************************
+    public void SetItems(ObservableList<Persoon> Personen)
+    {
+        this.observableKinderen = Personen;
+    }
+    
+    public ObservableList<Persoon> GetPersonen()
+    {
+        return (ObservableList<Persoon>)
+                FXCollections.unmodifiableObservableList(observableKinderen);
+    }
+    
     /**
      * @return alle kinderen uit dit gezin
      */

@@ -2,6 +2,8 @@ package stamboom.domain;
 
 
 import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Administratie implements java.io.Serializable{
 
@@ -10,6 +12,7 @@ public class Administratie implements java.io.Serializable{
     private int nextPersNr;
     private final List<Persoon> personen;
     private final List<Gezin> gezinnen;
+    private ObservableList<Gezin> observableGezinnen;
     private  String Achternaam;
 
     //***********************constructoren***********************************
@@ -22,12 +25,25 @@ public class Administratie implements java.io.Serializable{
         //todo opgave 1
         this.personen = new ArrayList<Persoon>();
         this.gezinnen = new ArrayList<Gezin>();
+        SetGezinnen((ObservableList<Gezin>) this.gezinnen);
         this.nextGezinsNr = 1;
         this.nextPersNr = 1;
         
     }
 
     //**********************methoden****************************************
+    
+    public void SetGezinnen(ObservableList<Gezin> Gezinnen)
+    {
+        this.observableGezinnen = Gezinnen;
+    }
+    
+    public ObservableList<Gezin> GetGezinnen()
+    {
+        return (ObservableList<Gezin>)
+                FXCollections.unmodifiableObservableList(observableGezinnen);
+    }
+    
     /**
      * er wordt een persoon met de gegeven parameters aangemaakt; de persoon
      * krijgt een uniek nummer toegewezen, en de persoon is voortaan ook bij het
