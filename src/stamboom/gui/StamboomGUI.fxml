@@ -188,6 +188,8 @@
                                                 <ListView fx:id="lvKinderen" prefHeight="52.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                                 <Label fx:id="lbOuder1" GridPane.columnIndex="1" />
                                                 <Label fx:id="lbOuder2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <TextField fx:id="tfHuwelijk" promptText="dd-mm-jjjj" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <TextField fx:id="tfScheiding" promptText="dd-mm-jjjj" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                              </children>
                                           </GridPane>
                                           <Button fx:id="btnHuwelijk" layoutX="375.0" layoutY="254.0" mnemonicParsing="false" text="Huwelijk" />

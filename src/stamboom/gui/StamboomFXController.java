@@ -15,7 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import stamboom.controller.StamboomController;
-import stamboom.domain.Administratie;
 import stamboom.domain.Geslacht;
 import stamboom.domain.Gezin;
 import stamboom.domain.Persoon;
@@ -69,8 +68,8 @@ public class StamboomFXController extends StamboomController implements Initiali
     @FXML ComboBox cbGezin;
     @FXML  Label lbOuder1;
     @FXML Label lbOuder2;
-    @FXML Label lbHuwelijk;
-    @FXML Label lbScheiding;
+    @FXML TextField tfHuwelijk;
+    @FXML TextField tfScheiding;
     @FXML ListView lvKinderen;
 
     //INVOER GEZIN
@@ -81,8 +80,6 @@ public class StamboomFXController extends StamboomController implements Initiali
     @FXML Button btOKGezinInvoer;
     @FXML Button btCancelGezinInvoer;
     
-
-    private Administratie admin;
     //opgave 4
     private boolean withDatabase;
 
@@ -93,11 +90,12 @@ public class StamboomFXController extends StamboomController implements Initiali
     }
 
     private void initComboboxes() {
-        //todo opgave 3 
-        cbPersonen.setItems((ObservableList) admin.getPersonen());
-        cbGezin.setItems(admin.GetGezinnen());
-        cbOuder1Invoer.setItems((ObservableList) admin.getPersonen());
-        cbOuder1Invoer.setItems((ObservableList) admin.getPersonen());
+        //todo opgave 3           
+        cbPersonen.setItems(getAdministratie().getObservablePersonen());
+        cbOuder1Invoer.setItems(getAdministratie().getObservablePersonen());        
+        cbOuder2Invoer.setItems(getAdministratie().getObservablePersonen());
+        cbGezin.setItems(getAdministratie().getObservableGezinnen());
+        cbOuderlijkIn.setItems(getAdministratie().getObservableGezinnen());
     }
 
     public void selectPersoon(Event evt) {
@@ -161,19 +159,38 @@ public class StamboomFXController extends StamboomController implements Initiali
         {
             lbOuder1.setText(gezin.getOuder1().getNaam());
             lbOuder2.setText(gezin.getOuder2().getNaam());
-            lbHuwelijk.setText(gezin.getHuwelijksdatum().toString());
-            lbScheiding.setText(gezin.getScheidingsdatum().toString());
+            tfHuwelijk.setText(gezin.getHuwelijksdatum().toString());
+            tfScheiding.setText(gezin.getScheidingsdatum().toString());
             lvKinderen.setItems((ObservableList) gezin.getKinderen());
         }
     }
 
     public void setHuwdatum(Event evt) {
         // todo opgave 3
+        Calendar huwelijk;
+       try
+       {
+           huwelijk = StringUtilities.datum(tfHuwelijk.getText());
+       } catch(IllegalArgumentException exc){
+           showDialog("Warning", "Geboortedatum :" + exc.getMessage());
+           return;
+       }
+        
+        getAdministratie().setHuwelijk((Gezin) cbGezin.getSelectionModel().getSelectedItem(), huwelijk);
     }
 
     public void setScheidingsdatum(Event evt) {
         // todo opgave 3
-
+        Calendar Scheiding;
+       try
+       {
+           Scheiding = StringUtilities.datum(tfScheiding.getText());
+       } catch(IllegalArgumentException exc){
+           showDialog("Warning", "Geboortedatum :" + exc.getMessage());
+           return;
+       }
+        
+        getAdministratie().setHuwelijk((Gezin) cbGezin.getSelectionModel().getSelectedItem(), Scheiding);
     }
 
     public void cancelPersoonInvoer(Event evt) {
@@ -222,7 +239,7 @@ public class StamboomFXController extends StamboomController implements Initiali
            return;
        }
        
-       admin.addPersoon(Geslacht.valueOf(geslacht), vnamen, tfAchternaamIn.getText(), tfTussenIN.getText(), GebDatum, tfGebPlaatsIn.getText(), (Gezin) lvBetrokkenIn.getItems());
+       getAdministratie().addPersoon(Geslacht.valueOf(geslacht), vnamen, tfAchternaamIn.getText(), tfTussenIN.getText(), GebDatum, tfGebPlaatsIn.getText(), (Gezin) lvBetrokkenIn.getItems());
        clearTabPersoonInvoer();
     }
 
@@ -369,8 +386,8 @@ public class StamboomFXController extends StamboomController implements Initiali
         cbGezin.getSelectionModel().clearSelection();
         lbOuder1.setText("");
         lbOuder2.setText("");
-        lbHuwelijk.setText("");
-        lbScheiding.setText("");
+        tfHuwelijk.clear();
+        tfScheiding.clear();
         lvKinderen.setItems(FXCollections.emptyObservableList());
     }
 

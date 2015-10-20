@@ -1,4 +1,6 @@
-Ipackage stamboom.domain;
+package stamboom.domain;
+
+//Ipackage stamboom.domain;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -7,6 +9,7 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import stamboom.domain.Persoon;
 import stamboom.util.StringUtilities;
 
 public class Gezin {

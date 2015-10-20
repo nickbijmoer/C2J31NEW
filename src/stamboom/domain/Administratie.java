@@ -3,6 +3,7 @@ package stamboom.domain;
 
 import java.util.*;
 import javafx.collections.FXCollections;
+import static javafx.collections.FXCollections.observableList;
 import javafx.collections.ObservableList;
 
 public class Administratie implements java.io.Serializable{
@@ -13,6 +14,7 @@ public class Administratie implements java.io.Serializable{
     private final List<Persoon> personen;
     private final List<Gezin> gezinnen;
     private transient ObservableList<Gezin> gezinnenObservable;
+    private transient ObservableList<Persoon> observablePersonen;
     private  String Achternaam;
 
     //***********************constructoren***********************************
@@ -23,11 +25,15 @@ public class Administratie implements java.io.Serializable{
      */
     public Administratie() {
         //todo opgave 1
-        this.personen = new ArrayList<Persoon>();
-        this.gezinnen = new ArrayList<Gezin>();
-        this.nextGezinsNr = 1;
-        this.nextPersNr = 1;
-        SetObservableList();
+//        this.personen = new ArrayList<Persoon>();
+//        this.gezinnen = new ArrayList<Gezin>();
+//        this.nextGezinsNr = 1;
+//        this.nextPersNr = 1;
+//        SetObservableList();
+        personen = new ArrayList<>();
+        gezinnen = new ArrayList<>();
+        observablePersonen = observableList(personen);
+        gezinnenObservable = observableList(gezinnen);
         
     }
 
@@ -348,6 +354,7 @@ public class Administratie implements java.io.Serializable{
         Personen.addAll(this.personen);
         return Personen;
     }
+    
 
     /**
      *
@@ -390,7 +397,11 @@ public class Administratie implements java.io.Serializable{
      * @return de geregistreerde gezinnen
      */
     public List<Gezin> getGezinnen() {
-        return null;
+        return gezinnen;
+    }
+    
+    public ObservableList<Gezin> getObservableGezinnen(){
+        return (ObservableList<Gezin>)FXCollections.unmodifiableObservableList(gezinnenObservable);
     }
     
     public String setInitialen(String[] voornamen) {
@@ -434,5 +445,9 @@ public class Administratie implements java.io.Serializable{
             tempVNaam = tempVNaam.substring(0, tempVNaam.length() - 1);
         }
         return tempVNaam;
+    }
+
+    public ObservableList getObservablePersonen() {
+        return (ObservableList<Persoon>)FXCollections.unmodifiableObservableList(observablePersonen);
     }
 }
