@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -93,7 +94,10 @@ public class StamboomFXController extends StamboomController implements Initiali
 
     private void initComboboxes() {
         //todo opgave 3 
-
+        cbPersonen.setItems((ObservableList) admin.getPersonen());
+        cbGezin.setItems(admin.GetGezinnen());
+        cbOuder1Invoer.setItems((ObservableList) admin.getPersonen());
+        cbOuder1Invoer.setItems((ObservableList) admin.getPersonen());
     }
 
     public void selectPersoon(Event evt) {
@@ -119,7 +123,7 @@ public class StamboomFXController extends StamboomController implements Initiali
             }
 
             //todo opgave 3
-            //lvAlsOuderBetrokkenBij.setItems(persoon.getAlsOuderBetrokkenIn());
+            lvAlsOuderBetrokkenBij.setItems(persoon.GetItems());
         }
     }
 
@@ -143,17 +147,28 @@ public class StamboomFXController extends StamboomController implements Initiali
 
     public void selectGezin(Event evt) {
         // todo opgave 3
-
+        Gezin gezin = (Gezin) cbGezin.getSelectionModel().getSelectedItem();
+        showGezin(gezin);
     }
 
     private void showGezin(Gezin gezin) {
         // todo opgave 3
-
+        if(gezin == null)
+        {
+            clearTabGezin();
+        }
+        else
+        {
+            lbOuder1.setText(gezin.getOuder1().getNaam());
+            lbOuder2.setText(gezin.getOuder2().getNaam());
+            lbHuwelijk.setText(gezin.getHuwelijksdatum().toString());
+            lbScheiding.setText(gezin.getScheidingsdatum().toString());
+            lvKinderen.setItems((ObservableList) gezin.getKinderen());
+        }
     }
 
     public void setHuwdatum(Event evt) {
         // todo opgave 3
-
     }
 
     public void setScheidingsdatum(Event evt) {

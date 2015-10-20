@@ -96,6 +96,7 @@
                                                                 <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                                                                 <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                                                                 <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints />
                                                             </rowConstraints>
                                                         </GridPane>
                                                     </children>
@@ -161,12 +162,12 @@
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <ComboBox fx:id="cbGezin" layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="171.0" />
+                                          <ComboBox fx:id="cbGezin" layoutX="14.0" layoutY="14.0" onAction="#selectGezin" prefHeight="31.0" prefWidth="171.0" />
                                        </children>
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <GridPane layoutX="14.0" layoutY="14.0" prefHeight="264.0" prefWidth="443.0">
+                                          <GridPane layoutX="14.0" layoutY="14.0" prefHeight="237.0" prefWidth="443.0">
                                             <columnConstraints>
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="134.0" />
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.0" minWidth="10.0" prefWidth="309.0" />
@@ -187,10 +188,10 @@
                                                 <ListView fx:id="lvKinderen" prefHeight="52.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                                 <Label fx:id="lbOuder1" GridPane.columnIndex="1" />
                                                 <Label fx:id="lbOuder2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                <Label fx:id="lbHuwelijk" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                <Label fx:id="lbScheiding" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                              </children>
                                           </GridPane>
+                                          <Button fx:id="btnHuwelijk" layoutX="375.0" layoutY="254.0" mnemonicParsing="false" text="Huwelijk" />
+                                          <Button fx:id="btnScheiding" layoutX="278.0" layoutY="254.0" mnemonicParsing="false" text="Scheiding" />
                                        </children>
                                     </AnchorPane>
                                 </items>
