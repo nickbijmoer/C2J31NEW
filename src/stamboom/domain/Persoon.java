@@ -61,8 +61,7 @@ public class Persoon implements Serializable{
         this.gebPlaats = gebplaats;
         this.geslacht = g;
         this.alsOuderBetrokkenIn = new ArrayList<>();
-        SetItems((ObservableList<Gezin>) this.alsOuderBetrokkenIn);
-        
+        SetObservableList();
         if(ouderlijkGezin != null)
         {
             setOuders(ouderlijkGezin);
@@ -72,6 +71,10 @@ public class Persoon implements Serializable{
     }
 
     // ********methoden****************************************
+    public void SetObservableList(){
+    ObservableAlsOuderBetrokkenIn = FXCollections.observableList(alsOuderBetrokkenIn);
+
+    }
     public void SetItems(ObservableList<Gezin> Gezinnen)
     {
         this.ObservableAlsOuderBetrokkenIn = Gezinnen;

@@ -1,4 +1,4 @@
-package stamboom.domain;
+Ipackage stamboom.domain;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -68,11 +68,14 @@ public class Gezin {
         this.ouder1 = ouder1;
         this.ouder2 = ouder2;
         this.kinderen = new ArrayList<>();
-        SetItems((ObservableList<Persoon>) kinderen);
-      
+        SetObservableList();
     }
 
     // ********methoden*****************************************
+    public void SetObservableList(){
+    observableKinderen = FXCollections.observableList(kinderen);
+
+    }
     public void SetItems(ObservableList<Persoon> Personen)
     {
         this.observableKinderen = Personen;

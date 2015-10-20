@@ -12,7 +12,7 @@ public class Administratie implements java.io.Serializable{
     private int nextPersNr;
     private final List<Persoon> personen;
     private final List<Gezin> gezinnen;
-    private ObservableList<Gezin> observableGezinnen;
+    private transient ObservableList<Gezin> gezinnenObservable;
     private  String Achternaam;
 
     //***********************constructoren***********************************
@@ -25,23 +25,17 @@ public class Administratie implements java.io.Serializable{
         //todo opgave 1
         this.personen = new ArrayList<Persoon>();
         this.gezinnen = new ArrayList<Gezin>();
-        SetGezinnen((ObservableList<Gezin>) this.gezinnen);
         this.nextGezinsNr = 1;
         this.nextPersNr = 1;
+        SetObservableList();
         
     }
 
     //**********************methoden****************************************
     
-    public void SetGezinnen(ObservableList<Gezin> Gezinnen)
+    public void SetObservableList()
     {
-        this.observableGezinnen = Gezinnen;
-    }
-    
-    public ObservableList<Gezin> GetGezinnen()
-    {
-        return (ObservableList<Gezin>)
-                FXCollections.unmodifiableObservableList(observableGezinnen);
+    gezinnenObservable = FXCollections.observableList(gezinnen);
     }
     
     /**
