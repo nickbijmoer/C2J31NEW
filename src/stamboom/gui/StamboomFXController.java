@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 import stamboom.controller.StamboomController;
 import stamboom.domain.Geslacht;
 import stamboom.domain.Gezin;
@@ -50,6 +51,7 @@ public class StamboomFXController extends StamboomController implements Initiali
     @FXML ComboBox cbOuderlijkGezin;
     @FXML ListView lvAlsOuderBetrokkenBij;
     @FXML Button btStamboom;
+    @FXML TextArea taStamboom;
     
     //INVOER PERSOON
     @FXML TextField tfNrIN;
@@ -290,7 +292,14 @@ public class StamboomFXController extends StamboomController implements Initiali
     
     public void showStamboom(Event evt) {
         // todo opgave 3
-        
+        try
+        {
+            Persoon persoon = (Persoon) cbPersonen.getSelectionModel().getSelectedItem();
+            taStamboom.setText(persoon.stamboomAlsString());            
+        }
+        catch(Exception ex)
+        {
+        }
     }
 
     public void createEmptyStamboom(Event evt) {
