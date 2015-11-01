@@ -4,6 +4,8 @@
  */
 package stamboom.gui;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -13,13 +15,18 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import stamboom.controller.StamboomController;
+import stamboom.domain.Administratie;
 import stamboom.domain.Geslacht;
 import stamboom.domain.Gezin;
 import stamboom.domain.Persoon;
 import stamboom.util.StringUtilities;
+import static stamboom.util.StringUtilities.datumString;
 
 /**
  *
@@ -54,7 +61,6 @@ public class StamboomFXController extends StamboomController implements Initiali
     @FXML TextArea taStamboom;
     
     //INVOER PERSOON
-    @FXML TextField tfNrIN;
     @FXML TextField tfVoornaamIN;
     @FXML TextField tfTussenIN;
     @FXML TextField tfAchternaamIn;
@@ -72,7 +78,9 @@ public class StamboomFXController extends StamboomController implements Initiali
     @FXML Label lbOuder2;
     @FXML TextField tfHuwelijk;
     @FXML TextField tfScheiding;
-    @FXML ListView lvKinderen;
+    //@FXML ListView lvKinderen;
+    @FXML Button btnScheiding;
+    @FXML Button btnHuwelijk;
 
     //INVOER GEZIN
     @FXML ComboBox cbOuder1Invoer;
@@ -109,7 +117,7 @@ public class StamboomFXController extends StamboomController implements Initiali
         if (persoon == null) {
             clearTabPersoon();
         } else {
-            tfPersoonNr.setText(persoon.getNr() + "");
+            tfPersoonNr.setText(Integer.toString(persoon.getNr()));
             tfVoornamen.setText(persoon.getVoornamen());
             tfTussenvoegsel.setText(persoon.getTussenvoegsel());
             tfAchternaam.setText(persoon.getAchternaam());
@@ -123,7 +131,7 @@ public class StamboomFXController extends StamboomController implements Initiali
             }
 
             //todo opgave 3
-            lvAlsOuderBetrokkenBij.setItems(persoon.GetItems());
+            lvAlsOuderBetrokkenBij.setItems(persoon.getAlsOuderBetrokkenIn());
         }
     }
 
@@ -160,10 +168,21 @@ public class StamboomFXController extends StamboomController implements Initiali
         else
         {
             lbOuder1.setText(gezin.getOuder1().getNaam());
-            lbOuder2.setText(gezin.getOuder2().getNaam());
-            tfHuwelijk.setText(gezin.getHuwelijksdatum().toString());
-            tfScheiding.setText(gezin.getScheidingsdatum().toString());
-            lvKinderen.setItems((ObservableList) gezin.getKinderen());
+            if(gezin.getOuder2() != null)
+        {
+            this.lbOuder2.setText(gezin.getOuder2().getNaam());
+        }
+        if(gezin.getHuwelijksdatum() != null)
+        {
+            this.tfHuwelijk.setText(datumString(gezin.getHuwelijksdatum()));
+            
+            if(gezin.getScheidingsdatum() != null)
+            {
+                this.tfScheiding.setText(datumString(gezin.getScheidingsdatum()));
+            }
+        }       
+        
+            //lvKinderen.setItems((ObservableList) gezin.getKinderen());
         }
     }
 
@@ -179,6 +198,7 @@ public class StamboomFXController extends StamboomController implements Initiali
        }
         
         getAdministratie().setHuwelijk((Gezin) cbGezin.getSelectionModel().getSelectedItem(), huwelijk);
+        clearTabGezin();
     }
 
     public void setScheidingsdatum(Event evt) {
@@ -191,8 +211,8 @@ public class StamboomFXController extends StamboomController implements Initiali
            showDialog("Warning", "Geboortedatum :" + exc.getMessage());
            return;
        }
-        
-        getAdministratie().setHuwelijk((Gezin) cbGezin.getSelectionModel().getSelectedItem(), Scheiding);
+        getAdministratie().setScheiding((Gezin) cbGezin.getSelectionModel().getSelectedItem(), Scheiding);getAdministratie().setHuwelijk((Gezin) cbGezin.getSelectionModel().getSelectedItem(), Scheiding);
+        clearTabGezin();
     }
 
     public void cancelPersoonInvoer(Event evt) {
@@ -217,20 +237,25 @@ public class StamboomFXController extends StamboomController implements Initiali
        }
        
        String[] vnamen = null;
-       String temp = null;
-       int names = 0;
-       for(int i = 0; i < tfVoornaamIN.getText().length(); i++)
+       if(!tfVoornaamIN.getText().equalsIgnoreCase(null))
        {
-           if (tfVoornaamIN.getText().substring(i, 2).equalsIgnoreCase(" "))
-           {
-               vnamen[names] = temp;
-               names++;
-           }
-           else
-           {
-               temp = temp + tfVoornaamIN.getText().substring(i, 2);
-           }
+           vnamen = tfVoornaamIN.getText().split(" ");
        }
+       
+//       String temp = null;
+//       int names = 0;
+//       for(int i = 0; i < tfVoornaamIN.getText().length(); i++)
+//       {
+//           if (tfVoornaamIN.getText().substring(i, 2).equalsIgnoreCase(" "))
+//           {
+//               vnamen[names] = temp;
+//               names++;
+//           }
+//           else
+//           {
+//               temp = temp + tfVoornaamIN.getText().substring(i, 2);
+//           }
+//       }
        
        Calendar GebDatum;
        try
@@ -241,7 +266,14 @@ public class StamboomFXController extends StamboomController implements Initiali
            return;
        }
        
-       getAdministratie().addPersoon(Geslacht.valueOf(geslacht), vnamen, tfAchternaamIn.getText(), tfTussenIN.getText(), GebDatum, tfGebPlaatsIn.getText(), (Gezin) lvBetrokkenIn.getItems());
+       Gezin Found = null;
+        for (Gezin gezin: getAdministratie().getGezinnen()) {
+            if (gezin == (Gezin)cbOuderlijkIn.getSelectionModel().getSelectedItem()) {
+                Found = gezin;
+            }
+        }
+        
+       getAdministratie().addPersoon(Geslacht.valueOf(geslacht), vnamen, tfAchternaamIn.getText(), tfTussenIN.getText(), GebDatum, tfGebPlaatsIn.getText(), Found);
        clearTabPersoonInvoer();
     }
 
@@ -292,6 +324,7 @@ public class StamboomFXController extends StamboomController implements Initiali
     
     public void showStamboom(Event evt) {
         // todo opgave 3
+        taStamboom.clear();
         try
         {
             Persoon persoon = (Persoon) cbPersonen.getSelectionModel().getSelectedItem();
@@ -299,6 +332,7 @@ public class StamboomFXController extends StamboomController implements Initiali
         }
         catch(Exception ex)
         {
+            JOptionPane.showConfirmDialog(null, "Select a person first");
         }
     }
 
@@ -311,13 +345,98 @@ public class StamboomFXController extends StamboomController implements Initiali
     
     public void openStamboom(Event evt) {
         // todo opgave 3
-       
+//            String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+//        path = path.substring(0, path.length() - 38) + "/administratieFiles";
+//        
+//        JFileChooser fileChooser = new JFileChooser(path);
+//        FileNameExtensionFilter filter = new FileNameExtensionFilter("Administraties", "administratie");
+//        fileChooser.setFileFilter(filter);
+//        //JOptionPane.showConfirmDialog(null, path);
+//        
+//        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) 
+//        {
+//            File file = fileChooser.getSelectedFile();
+//            JOptionPane.showConfirmDialog(null, file.getName());
+//            try
+//            {
+//                deserialize(file);
+//                Administratie check = getAdministratie();
+//                clearTabs();
+//                initComboboxes();
+//            }
+//            catch (IOException ex)
+//            {
+//                JOptionPane.showConfirmDialog(null, "Bestand kon niet geladen worden: " + ex.getMessage());
+//            }
+//        }
+        try{
+            JFileChooser jf = new JFileChooser();
+            jf.showOpenDialog(jf);
+            File bestand = new File(jf.getSelectedFile().toString());
+            this.deserialize(bestand);
+            System.out.println(this.getAdministratie().getPersonen().size());
+            initComboboxes();
+            showDialog("Geslaagd", "Stamboom is succesvol opgehaald uit het bestand: "+ jf.getSelectedFile().toString());
+        }
+        catch(Exception ex){
+           showDialog("Exception", ex.toString());
+        }
+        
+            
     }
 
     
     public void saveStamboom(Event evt) {
         // todo opgave 3
-       
+//        String path = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+//        path = path.substring(0, path.length() - 38) + "/administratieFiles";
+//        
+//        JFileChooser fileChooser = new JFileChooser(path);
+//        
+//        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+//          File file = fileChooser.getSelectedFile();
+//                    
+//            try
+//            {
+//                serialize(file);
+//            }
+//            catch (IOException ex)
+//            {
+//                JOptionPane.showConfirmDialog(null, "Bestand kon niet opgeslagen worden: " + ex.getMessage());
+//            }
+//        }
+        
+        FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Sla Stamboom op");
+            File f = fileChooser.showSaveDialog(new Stage());
+            try {
+
+                this.serialize(f);
+                showDialog("Geslaagd", "Stamboom is succesvol opgeslagen in het bestand");
+
+            } catch (Exception exc) {
+                exc.fillInStackTrace();
+            }
+        
+        
+        //try{
+//           
+//           
+//           
+//           
+////           File f = new File("stamboom.dat");
+////           super.serialize(f);
+//           
+////           FileOutputStream fout = new FileOutputStream("c:\\address.ser");
+////		ObjectOutputStream oos = new ObjectOutputStream(fout);   
+////		oos.writeObject(address);
+////		oos.close();
+////		System.out.println("Done");
+//       }
+//       catch(Exception ex){
+//           showDialog("Exception", ex.toString());
+//       }
+                
     }
 
     
@@ -355,7 +474,6 @@ public class StamboomFXController extends StamboomController implements Initiali
     
     private void clearTabPersoonInvoer() {
         //todo opgave 3
-        tfNrIN.clear();
         tfVoornaamIN.clear();
         tfTussenIN.clear();
         tfAchternaamIn.clear();
@@ -397,7 +515,7 @@ public class StamboomFXController extends StamboomController implements Initiali
         lbOuder2.setText("");
         tfHuwelijk.clear();
         tfScheiding.clear();
-        lvKinderen.setItems(FXCollections.emptyObservableList());
+        //lvKinderen.setItems(FXCollections.emptyObservableList());
     }
 
     private void showDialog(String type, String message) {

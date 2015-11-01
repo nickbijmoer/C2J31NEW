@@ -203,8 +203,11 @@ public class Persoon implements Serializable{
     /**
      * @return de gezinnen waar deze persoon bij betrokken is
      */
-    public List<Gezin> getAlsOuderBetrokkenIn() {
-        return (List<Gezin>) Collections.unmodifiableList(alsOuderBetrokkenIn);
+//    public List<Gezin> getAlsOuderBetrokkenIn() {
+//        return (List<Gezin>) Collections.unmodifiableList(alsOuderBetrokkenIn);
+//    }
+    public ObservableList<Gezin> getAlsOuderBetrokkenIn() {
+        return (ObservableList<Gezin>)FXCollections.unmodifiableObservableList(ObservableAlsOuderBetrokkenIn);
     }
 
     /**

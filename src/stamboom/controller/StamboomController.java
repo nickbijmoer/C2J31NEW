@@ -6,8 +6,10 @@ package stamboom.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Properties;
 import stamboom.domain.Administratie;
 import stamboom.storage.IStorageMediator;
+import stamboom.storage.SerializationMediator;
 
 public class StamboomController {
 
@@ -42,7 +44,16 @@ public class StamboomController {
      */
     public void serialize(File bestand) throws IOException {
         //todo opgave 2
-        
+        SerializationMediator serializationMediator = new SerializationMediator();
+
+        Properties props = new Properties();
+
+        props.setProperty("file", String.valueOf(bestand.getAbsoluteFile()));
+
+        if(serializationMediator.configure(props) == false)
+            throw new IOException("Properties could not be loaded");
+
+        serializationMediator.save(this.admin);
     }
 
     /**
@@ -53,7 +64,15 @@ public class StamboomController {
      */
     public void deserialize(File bestand) throws IOException {
         //todo opgave 2
-  
+        SerializationMediator serializationMediator = new SerializationMediator();
+
+        Properties props = new Properties();
+
+        props.setProperty("file", String.valueOf(bestand.getAbsoluteFile()));
+
+        serializationMediator.configure(props);
+
+        this.admin = serializationMediator.load();
     }
     
     // opgave 4

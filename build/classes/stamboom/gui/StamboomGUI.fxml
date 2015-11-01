@@ -122,7 +122,6 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -131,27 +130,25 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Nr:" />
-                                    <Label text="Voornamen:" GridPane.rowIndex="1" />
-                                    <Label text="Tussenvoegsel:" GridPane.rowIndex="2" />
-                                    <Label text="Achternaam:" GridPane.rowIndex="3" />
-                                    <Label text="Geslacht:" GridPane.rowIndex="4" />
-                                    <Label text="GebDat:" GridPane.rowIndex="5" />
-                                    <Label text="Ouderlijk gezin:" GridPane.rowIndex="7" />
-                                    <Label text="Betrokken bij:" GridPane.rowIndex="8" />
-                                    <TextField fx:id="tfNrIN" GridPane.columnIndex="1" />
-                                    <TextField fx:id="tfVoornaamIN" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="tfTussenIN" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="tfAchternaamIn" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <TextField fx:id="tfGeslachtIn" promptText="MAN - VROUW" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <TextField fx:id="tfGebDatIn" promptText="dd-mm-jjjj" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <ListView fx:id="lvBetrokkenIn" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                    <ComboBox fx:id="cbOuderlijkIn" prefHeight="31.0" prefWidth="493.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                    <Label text="GebPlaats:" GridPane.rowIndex="6" />
-                                    <TextField fx:id="tfGebPlaatsIn" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label text="Voornamen:" />
+                                    <Label text="Tussenvoegsel:" GridPane.rowIndex="1" />
+                                    <Label text="Achternaam:" GridPane.rowIndex="2" />
+                                    <Label text="Geslacht:" GridPane.rowIndex="3" />
+                                    <Label text="GebDat:" GridPane.rowIndex="4" />
+                                    <Label text="Ouderlijk gezin:" GridPane.rowIndex="6" />
+                                    <Label text="Betrokken bij:" GridPane.rowIndex="7" />
+                                    <TextField fx:id="tfVoornaamIN" GridPane.columnIndex="1" />
+                                    <TextField fx:id="tfTussenIN" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="tfAchternaamIn" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="tfGeslachtIn" promptText="MAN - VROUW" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="tfGebDatIn" promptText="dd-mm-jjjj" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <ListView fx:id="lvBetrokkenIn" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <ComboBox fx:id="cbOuderlijkIn" prefHeight="31.0" prefWidth="493.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Label text="GebPlaats:" GridPane.rowIndex="5" />
+                                    <TextField fx:id="tfGebPlaatsIn" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                  </children>
                               </GridPane>
-                              <Button fx:id="btnOKPersoon" layoutX="613.0" layoutY="279.0" mnemonicParsing="false" text="OK" />
+                              <Button fx:id="btnOKPersoon" layoutX="613.0" layoutY="279.0" mnemonicParsing="false" onAction="#okPersoonInvoer" text="OK" />
                               <Button fx:id="btnCancelPersoon" layoutX="530.0" layoutY="279.0" mnemonicParsing="false" text="Cancel" />
                            </children>
                         </AnchorPane>
@@ -180,23 +177,20 @@
                                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
                                                 <Label text="Ouder 1:" />
                                                 <Label text="Ouder 2:" GridPane.rowIndex="1" />
                                                 <Label text="Huwelijk datum:" GridPane.rowIndex="2" />
                                                 <Label text="Scheiding datum:" GridPane.rowIndex="3" />
-                                                <Label text="Kinderen:" GridPane.rowIndex="4" />
-                                                <ListView fx:id="lvKinderen" prefHeight="52.0" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                                 <Label fx:id="lbOuder1" GridPane.columnIndex="1" />
                                                 <Label fx:id="lbOuder2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 <TextField fx:id="tfHuwelijk" promptText="dd-mm-jjjj" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                 <TextField fx:id="tfScheiding" promptText="dd-mm-jjjj" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                              </children>
                                           </GridPane>
-                                          <Button fx:id="btnHuwelijk" layoutX="375.0" layoutY="254.0" mnemonicParsing="false" text="Huwelijk" />
-                                          <Button fx:id="btnScheiding" layoutX="278.0" layoutY="254.0" mnemonicParsing="false" text="Scheiding" />
+                                          <Button fx:id="btnHuwelijk" layoutX="375.0" layoutY="254.0" mnemonicParsing="false" onAction="#setHuwdatum" onTouchPressed="#setHuwdatum" text="Huwelijk" />
+                                          <Button fx:id="btnScheiding" layoutX="267.0" layoutY="254.0" mnemonicParsing="false" onAction="#setScheidingsdatum" text="Scheiding" />
                                        </children>
                                     </AnchorPane>
                                 </items>

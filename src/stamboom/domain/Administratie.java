@@ -35,6 +35,8 @@ public class Administratie implements Serializable{
         gezinnen = new ArrayList<>();
         observablePersonen = observableList(personen);
         gezinnenObservable = observableList(gezinnen);
+        this.nextGezinsNr = 1;
+        this.nextPersNr = 1;
         
     }
 
@@ -152,7 +154,9 @@ public class Administratie implements Serializable{
             voornamen = voornamenVal.toArray(new String[0]);
             Persoon newPersoon = new Persoon(nextPersNr, voornamen, anaam, tvoegsel, gebdat, gebplaats, geslacht, ouderlijkGezin);
             nextPersNr++;
-            personen.add(newPersoon);
+            //personen.add(newPersoon);
+            observablePersonen.add(newPersoon);
+            
             return newPersoon;
     }
 
@@ -191,7 +195,8 @@ public class Administratie implements Serializable{
 
         Gezin gezin = new Gezin(nextGezinsNr, ouder1, ouder2);
         nextGezinsNr++;
-        gezinnen.add(gezin);
+        //gezinnen.add(gezin);
+        gezinnenObservable.add(gezin);
 
         ouder1.wordtOuderIn(gezin);
         if (ouder2 != null) {
@@ -281,7 +286,8 @@ public class Administratie implements Serializable{
                         ouder1.wordtOuderIn(gezin);
                         ouder2.wordtOuderIn(gezin);
 
-                        this.gezinnen.add(gezin);
+                        //this.gezinnen.add(gezin);
+                        gezinnenObservable.add(gezin);
                         nextGezinsNr++;
                     }
                 }
