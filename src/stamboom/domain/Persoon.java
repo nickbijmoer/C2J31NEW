@@ -60,7 +60,7 @@ public class Persoon implements Serializable{
         this.gebDat = gebdat;
         this.gebPlaats = gebplaats;
         this.geslacht = g;
-        this.alsOuderBetrokkenIn = new ArrayList<>();
+        this.alsOuderBetrokkenIn = new ArrayList<Gezin>();
         SetObservableList();
         if(ouderlijkGezin != null)
         {
@@ -268,9 +268,17 @@ public class Persoon implements Serializable{
      *
      */
     void wordtOuderIn(Gezin g) {
-        if (!alsOuderBetrokkenIn.contains(g)) {
+        if(ObservableAlsOuderBetrokkenIn != null)
+        {
+            if (!ObservableAlsOuderBetrokkenIn.contains(g)) {
             ObservableAlsOuderBetrokkenIn.add(g);
         }
+        }
+        else{
+            ObservableAlsOuderBetrokkenIn = FXCollections.observableList(alsOuderBetrokkenIn);
+            ObservableAlsOuderBetrokkenIn.add(g);
+        }
+        
     }
 
     /**
@@ -292,7 +300,10 @@ public class Persoon implements Serializable{
 //        
 //       
 //        return null;
-        
+        if(ObservableAlsOuderBetrokkenIn == null)
+        {
+            return null;
+        }
         if (andereOuder != null) {
             for (Gezin g : ObservableAlsOuderBetrokkenIn) {
                 if ((g.getOuder1().equals(andereOuder) || (g.getOuder2() != null && g.getOuder2().equals(andereOuder))) && g.isOngehuwd()) {
@@ -321,10 +332,13 @@ public class Persoon implements Serializable{
      * @return true als persoon op datum getrouwd is, anders false
      */
     public boolean isGetrouwdOp(Calendar datum) {
+        if(ObservableAlsOuderBetrokkenIn != null)
+        {
         for (Gezin gezin : ObservableAlsOuderBetrokkenIn) {
             if (gezin.heeftGetrouwdeOudersOp(datum)) {
                 return true;
             }
+        }
         }
         return false;
     }

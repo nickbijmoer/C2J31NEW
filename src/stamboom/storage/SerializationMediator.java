@@ -68,15 +68,22 @@ public class SerializationMediator implements IStorageMediator{
         }
 
         // todo opgave 2
-        try {
-            FileOutputStream fos = new FileOutputStream(props.getProperty("file"));
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(admin);
-            oos.close();
-            fos.close();   
-        } catch(IOException ex){
-           System.out.printf("Cannot perform output.", ex.toString());
-        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(props.getProperty("file"));
+//            ObjectOutputStream oos = new ObjectOutputStream(fos);
+//            oos.writeObject(admin);
+//            oos.close();
+//            fos.close();   
+//        } catch(IOException ex){
+//           System.out.printf("Cannot perform output.", ex.toString());
+//        }
+        FileOutputStream fos = new FileOutputStream(props.getProperty("file"));
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fos);
+
+        objectOutputStream.writeObject(admin);
+
+        objectOutputStream.close();
+        fos.close();
     }
 
     /**

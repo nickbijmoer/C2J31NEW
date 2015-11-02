@@ -88,9 +88,7 @@ public class Administratie implements Serializable{
             if (voornaam.trim().isEmpty()) {
                 throw new IllegalArgumentException("lege voornaam is niet toegestaan");
             }
-            
         }
-        
      
         if (anaam.trim().isEmpty()) {
             throw new IllegalArgumentException("lege achternaam is niet toegestaan");
@@ -306,7 +304,7 @@ public class Administratie implements Serializable{
      * @return het aantal geregistreerde personen
      */
     public int aantalGeregistreerdePersonen() {
-        return nextPersNr - 1;
+        return nextPersNr;
     }
 
     /**
@@ -314,7 +312,7 @@ public class Administratie implements Serializable{
      * @return het aantal geregistreerde gezinnen
      */
     public int aantalGeregistreerdeGezinnen() {
-        return nextGezinsNr - 1;
+        return nextGezinsNr;
     }
 
     /**
