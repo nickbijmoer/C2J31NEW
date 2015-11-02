@@ -1,6 +1,8 @@
 package stamboom.domain;
 
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.*;
 import javafx.collections.FXCollections;
@@ -36,8 +38,7 @@ public class Administratie implements Serializable{
         observablePersonen = observableList(personen);
         gezinnenObservable = observableList(gezinnen);
         this.nextGezinsNr = 1;
-        this.nextPersNr = 1;
-        
+        this.nextPersNr = 1;        
     }
 
     //**********************methoden****************************************
@@ -157,7 +158,11 @@ public class Administratie implements Serializable{
             //personen.add(newPersoon);
             observablePersonen.add(newPersoon);
             
-            return newPersoon;
+            
+        if (ouderlijkGezin != null) {
+            ouderlijkGezin.breidUitMet(newPersoon);
+        }
+        return newPersoon;
     }
 
     /**
@@ -389,7 +394,7 @@ public class Administratie implements Serializable{
             }
         }
             
-        for(Persoon persoon : personen)
+        for(Persoon persoon : observablePersonen)
         {
             if(persoon.getInitialen().equalsIgnoreCase(setInitialen(vnamen))  && persoon.getAchternaam().equalsIgnoreCase(anaam) && persoon.getTussenvoegsel().equalsIgnoreCase(tvoegsel) && persoon.getGebDat().equals(gebdat)  && persoon.getGebPlaats().equalsIgnoreCase(gebplaats))
             {
@@ -456,5 +461,12 @@ public class Administratie implements Serializable{
 
     public ObservableList getObservablePersonen() {
         return (ObservableList<Persoon>)FXCollections.unmodifiableObservableList(observablePersonen);
+    }
+    
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        this.observablePersonen = FXCollections.observableList(personen);
+        this.gezinnenObservable = FXCollections.observableList(gezinnen);
+
     }
 }

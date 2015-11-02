@@ -308,10 +308,17 @@ public class StamboomFXController extends StamboomController implements Initiali
                 }
             }
         } else {
-            g = getAdministratie().addOngehuwdGezin(ouder1, ouder2);
+            try{
+               g = getAdministratie().addOngehuwdGezin(ouder1, ouder2);
             if (g == null) {
                 showDialog("Warning", "Invoer ongehuwd gezin is niet geaccepteerd");
+                } 
             }
+            catch(Exception ex)
+            {
+                JOptionPane.showConfirmDialog(null, "Error: " + ex.getMessage());
+            }
+            
         }
 
         clearTabGezinInvoer();
@@ -369,7 +376,19 @@ public class StamboomFXController extends StamboomController implements Initiali
 //                JOptionPane.showConfirmDialog(null, "Bestand kon niet geladen worden: " + ex.getMessage());
 //            }
 //        }
-        try{
+        if(withDatabase)
+        {
+            try
+            {
+                loadFromDatabase();
+            }
+            catch (IOException ex)
+            {
+                System.out.println("Database could not be loaded.");
+            }
+        }
+        else{
+            try{
             JFileChooser jf = new JFileChooser();
             jf.showOpenDialog(jf);
             File bestand = new File(jf.getSelectedFile().toString());
@@ -381,6 +400,8 @@ public class StamboomFXController extends StamboomController implements Initiali
         catch(Exception ex){
            showDialog("Exception", ex.toString());
         }
+        }
+        
         
             
     }
@@ -405,8 +426,19 @@ public class StamboomFXController extends StamboomController implements Initiali
 //                JOptionPane.showConfirmDialog(null, "Bestand kon niet opgeslagen worden: " + ex.getMessage());
 //            }
 //        }
-        
-        FileChooser fileChooser = new FileChooser();
+        if(withDatabase)
+        {
+            try
+        {
+            saveToDatabase();
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Database could not be saved.");
+        }
+        }
+        else{
+            FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Sla Stamboom op");
             File f = fileChooser.showSaveDialog(new Stage());
             try {
@@ -417,6 +449,8 @@ public class StamboomFXController extends StamboomController implements Initiali
             } catch (Exception exc) {
                 exc.fillInStackTrace();
             }
+        }
+        
         
         
         //try{

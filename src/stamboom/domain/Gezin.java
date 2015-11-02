@@ -2,6 +2,8 @@ package stamboom.domain;
 
 //Ipackage stamboom.domain;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -72,20 +74,20 @@ public class Gezin implements Serializable {
         this.ouder1 = ouder1;
         this.ouder2 = ouder2;
         this.kinderen = new ArrayList<>();
-        SetObservableList();
+        this.observableKinderen = FXCollections.observableList(kinderen);
     }
 
     // ********methoden*****************************************
-    public void SetObservableList(){
-    observableKinderen = FXCollections.observableList(kinderen);
-
-    }
-    public void SetItems(ObservableList<Persoon> Personen)
-    {
-        this.observableKinderen = Personen;
-    }
+//    public void SetObservableList(){
+//    observableKinderen = FXCollections.observableList(kinderen);
+//
+//    }
+//    public void SetItems(ObservableList<Persoon> Personen)
+//    {
+//        this.observableKinderen = Personen;
+//    }
     
-    public ObservableList<Persoon> GetPersonen()
+    public ObservableList<Persoon> getKinderen()
     {
         return (ObservableList<Persoon>)
                 FXCollections.unmodifiableObservableList(observableKinderen);
@@ -94,9 +96,9 @@ public class Gezin implements Serializable {
     /**
      * @return alle kinderen uit dit gezin
      */
-    public List<Persoon> getKinderen() {
-        return (List<Persoon>) Collections.unmodifiableList(kinderen);
-    }
+//    public List<Persoon> getKinderen() {
+//        return (List<Persoon>) Collections.unmodifiableList(kinderen);
+//    }
 
     /**
      *
@@ -170,7 +172,7 @@ public class Gezin implements Serializable {
      * @param datum moet na de huwelijksdatum zijn.
      * @return true als scheiding kan worden voltrokken, anders false
      */
-    boolean setScheiding(Calendar datum) {
+    public boolean setScheiding(Calendar datum) {
         if (this.scheidingsdatum == null && huwelijksdatum != null
                 && datum.after(huwelijksdatum) && datum != null) {
             this.scheidingsdatum = datum;
@@ -189,7 +191,7 @@ public class Gezin implements Serializable {
      * @param datum de huwelijksdatum
      * @return false als huwelijk niet mocht worden voltrokken, anders true
      */
-    boolean setHuwelijk(Calendar datum) {
+    public boolean setHuwelijk(Calendar datum) {
         //todo opgave 1
         if(huwelijksdatum == null && ouder1.kanTrouwenOp(datum) && ouder2.kanTrouwenOp(datum))
         {
@@ -312,5 +314,10 @@ public class Gezin implements Serializable {
        
         return false;
 
+    }
+    
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        observableKinderen = FXCollections.observableList(kinderen);
     }
 }

@@ -21,7 +21,7 @@ public class Persoon implements Serializable{
     private final String gebPlaats;
     private Gezin ouderlijkGezin;
     private final List<Gezin> alsOuderBetrokkenIn;
-    private ObservableList<Gezin> ObservableAlsOuderBetrokkenIn;
+    private transient ObservableList<Gezin> ObservableAlsOuderBetrokkenIn;
     private final Geslacht geslacht;
     
     private List<PersoonMetGeneratie> pmg = new ArrayList<PersoonMetGeneratie>();
@@ -249,10 +249,10 @@ public class Persoon implements Serializable{
                 sb.append("; 2e ouder: ").append(ouderlijkGezin.getOuder2().getNaam());
             }
         }
-        if (!alsOuderBetrokkenIn.isEmpty()) {
+        if (!ObservableAlsOuderBetrokkenIn.isEmpty()) {
             sb.append("; is ouder in gezin ");
 
-            for (Gezin g : alsOuderBetrokkenIn) {
+            for (Gezin g : ObservableAlsOuderBetrokkenIn) {
                 sb.append(g.getNr()).append(" ");
             }
         }
@@ -269,7 +269,7 @@ public class Persoon implements Serializable{
      */
     void wordtOuderIn(Gezin g) {
         if (!alsOuderBetrokkenIn.contains(g)) {
-            alsOuderBetrokkenIn.add(g);
+            ObservableAlsOuderBetrokkenIn.add(g);
         }
     }
 
@@ -294,13 +294,13 @@ public class Persoon implements Serializable{
 //        return null;
         
         if (andereOuder != null) {
-            for (Gezin g : alsOuderBetrokkenIn) {
+            for (Gezin g : ObservableAlsOuderBetrokkenIn) {
                 if ((g.getOuder1().equals(andereOuder) || (g.getOuder2() != null && g.getOuder2().equals(andereOuder))) && g.isOngehuwd()) {
                     return g;
                 }
             }
         } else {
-            for (Gezin g : alsOuderBetrokkenIn) {
+            for (Gezin g : ObservableAlsOuderBetrokkenIn) {
                 Persoon p = null;
                 if (g.getOuder1().equals(this)) {
                     p = g.getOuder2();
@@ -321,7 +321,7 @@ public class Persoon implements Serializable{
      * @return true als persoon op datum getrouwd is, anders false
      */
     public boolean isGetrouwdOp(Calendar datum) {
-        for (Gezin gezin : alsOuderBetrokkenIn) {
+        for (Gezin gezin : ObservableAlsOuderBetrokkenIn) {
             if (gezin.heeftGetrouwdeOudersOp(datum)) {
                 return true;
             }
@@ -343,7 +343,7 @@ public class Persoon implements Serializable{
             return false;
         }
 
-        for (Gezin gezin : alsOuderBetrokkenIn) {
+        for (Gezin gezin : ObservableAlsOuderBetrokkenIn) {
             if (gezin.heeftGetrouwdeOudersOp(datum)) {
                 return false;
             } else {
@@ -363,7 +363,7 @@ public class Persoon implements Serializable{
      */
     public boolean isGescheidenOp(Calendar datum) {
         //todo opgave 1
-        for(Gezin gezin : alsOuderBetrokkenIn)
+        for(Gezin gezin : ObservableAlsOuderBetrokkenIn)
         {
             if(gezin.getScheidingsdatum() == datum)
             {
