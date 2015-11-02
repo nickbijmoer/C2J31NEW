@@ -22,7 +22,7 @@ public class Gezin implements Serializable {
     private final Persoon ouder1;
     private final Persoon ouder2;
     private final List<Persoon> kinderen;
-    private ObservableList<Persoon> observableKinderen;
+    private transient ObservableList<Persoon> observableKinderen;
     /**
      * kan onbekend zijn (dan is het een ongehuwd gezin):
      */
@@ -105,7 +105,7 @@ public class Gezin implements Serializable {
      * @return het aantal kinderen in dit gezin
      */
     public int aantalKinderen() {
-        return kinderen.size();
+        return observableKinderen.size();
     }
 
     /**
@@ -215,9 +215,9 @@ public class Gezin implements Serializable {
             SimpleDateFormat huwedate = new SimpleDateFormat("d-M-yyyy");
             beschrijvingText += " " + huwedate.format(huwelijksdatum.getTime());
         }
-        if(this.kinderen.size() >=  1){
+        if(this.observableKinderen.size() >=  1){
             beschrijvingText += "; kinderen:";
-            for (Persoon kinderen1 : this.kinderen) {
+            for (Persoon kinderen1 : this.observableKinderen) {
                 beschrijvingText += " -" + kinderen1.getVoornamen();
             }
         }
@@ -231,8 +231,8 @@ public class Gezin implements Serializable {
      * @param kind
      */
     void breidUitMet(Persoon kind) {
-        if (!kinderen.contains(kind) && !this.isFamilieVan(kind)) {
-            kinderen.add(kind);
+        if (!observableKinderen.contains(kind) && !this.isFamilieVan(kind)) {
+            observableKinderen.add(kind);
         }
     }
 
@@ -245,7 +245,7 @@ public class Gezin implements Serializable {
     boolean isFamilieVan(Persoon input) {
         if (this.ouder1.getNr() == input.getNr()
                 || (this.ouder2 != null && this.ouder2.getNr() == input.getNr())
-                || kinderen.contains(input)) {
+                || observableKinderen.contains(input)) {
             return true;
         }
 

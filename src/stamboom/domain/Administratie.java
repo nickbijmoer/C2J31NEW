@@ -140,9 +140,9 @@ public class Administratie implements Serializable{
         {
             naam = initialen + " " + anaam;
         }
-        if(personen!=null && !personen.isEmpty())
+        if(observablePersonen!=null && !observablePersonen.isEmpty())
         {
-            for(Persoon persoon : personen)
+            for(Persoon persoon : observablePersonen)
             {
                 if(persoon.getInitialen().equalsIgnoreCase(setInitialen(vnamen))  && persoon.getGebDat().equals(gebdat)  && persoon.getGebPlaats().equalsIgnoreCase(gebplaats) && persoon.getTussenvoegsel().equalsIgnoreCase(tussenvoegsel))
                 {
@@ -277,7 +277,7 @@ public class Administratie implements Serializable{
         //todo opgave 1
         Gezin gezin = null;
         if (ouder1 != ouder2 && ouder1.kanTrouwenOp(huwdatum) && ouder2.kanTrouwenOp(huwdatum)) {
-            for (Persoon p : personen) {
+            for (Persoon p : observablePersonen) {
                 if (p.equals(ouder1)) {
                     gezin = ouder1.heeftOngehuwdGezinMet(ouder2);
                     if (gezin != null) {
@@ -304,7 +304,7 @@ public class Administratie implements Serializable{
      * @return het aantal geregistreerde personen
      */
     public int aantalGeregistreerdePersonen() {
-        return nextPersNr;
+        return observablePersonen.size();
     }
 
     /**
@@ -312,7 +312,7 @@ public class Administratie implements Serializable{
      * @return het aantal geregistreerde gezinnen
      */
     public int aantalGeregistreerdeGezinnen() {
-        return nextGezinsNr;
+        return gezinnenObservable.size();
     }
 
     /**
@@ -324,7 +324,7 @@ public class Administratie implements Serializable{
     public Persoon getPersoon(int nr) {
         //todo opgave 1
         //aanname: er worden geen personen verwijderd
-        for(Persoon persoon : personen)
+        for(Persoon persoon : observablePersonen)
         {
             if(persoon.getNr() == nr)
             {
@@ -343,7 +343,7 @@ public class Administratie implements Serializable{
         //todo opgave 1
         achternaam = achternaam.substring(0, 1).toUpperCase() + achternaam.substring(1, achternaam.length()).toLowerCase();
         ArrayList<Persoon> FoundPersons = new ArrayList<Persoon>();
-        for(Persoon persoon : personen)
+        for(Persoon persoon : observablePersonen)
         {
             Achternaam = persoon.getAchternaam();
             if(Achternaam.equalsIgnoreCase(achternaam))
@@ -358,11 +358,15 @@ public class Administratie implements Serializable{
      *
      * @return de geregistreerde personen
      */
-    public List<Persoon> getPersonen() {
-        // todo opgave 1
-        List<Persoon> Personen = new ArrayList<>();
-        Personen.addAll(this.personen);
-        return Personen;
+//    public List<Persoon> getPersonen() {
+//        // todo opgave 1
+//        List<Persoon> Personen = new ArrayList<>();
+//        Personen.addAll(this.observablePersonen);
+//        return Personen;
+//    }
+    
+    public ObservableList<Persoon> getPersonen(){
+        return observablePersonen;
     }
     
 
@@ -407,7 +411,7 @@ public class Administratie implements Serializable{
      * @return de geregistreerde gezinnen
      */
     public List<Gezin> getGezinnen() {
-        return gezinnen;
+        return gezinnenObservable;
     }
     
     public ObservableList<Gezin> getObservableGezinnen(){
