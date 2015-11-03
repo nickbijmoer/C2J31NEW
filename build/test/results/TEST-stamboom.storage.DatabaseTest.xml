@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="1" failures="0" hostname="DellFish-Laptop" name="stamboom.storage.DatabaseTest" skipped="0" tests="2" time="0.503" timestamp="2015-11-03T00:30:21">
+<testsuite errors="1" failures="0" hostname="DellFish-Laptop" name="stamboom.storage.DatabaseTest" skipped="0" tests="2" time="2.266" timestamp="2015-11-03T00:59:36">
   <properties>
     <property name="netbeans.autoupdate.country" value="US" />
     <property name="javafx.binarycss" value="false" />
@@ -49,7 +49,7 @@
     <property name="user.name" value="Bart" />
     <property name="copylibs.rebase" value="true" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner stamboom.storage.DatabaseTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\test\results\TEST-stamboom.storage.DatabaseTest.xml crashfile=C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\junitvmwatcher85857474019353616.properties propsfile=C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\junit1315662188632420120.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner stamboom.storage.DatabaseTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\test\results\TEST-stamboom.storage.DatabaseTest.xml crashfile=C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\junitvmwatcher4550523734392855057.properties propsfile=C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\junit8619422682895690180.properties" />
     <property name="auxiliary.org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAnnotations" value="WRAP_NEVER" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
@@ -88,7 +88,7 @@
     <property name="javac.debug" value="true" />
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
-    <property name="javac.includesfile.binary" value="C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\null123502912" />
+    <property name="javac.includesfile.binary" value="C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\null1986446681" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="mkdist.disabled" value="false" />
     <property name="javac.test.processorpath" value="C:\Program Files (x86)\NetBeans 8.0.2\ide\modules\ext\mysql-connector-java-5.1.23-bin.jar:C:\Program Files (x86)\NetBeans 8.0.2\platform\modules\ext\junit-4.10.jar:C:\Program Files (x86)\Java\jdk1.8.0_60\jre/lib/javaws.jar:C:\Program Files (x86)\Java\jdk1.8.0_60\jre/lib/deploy.jar:C:\Program Files (x86)\Java\jdk1.8.0_60\jre/lib/plugin.jar:build/classes" />
@@ -110,7 +110,7 @@
     <property name="libs.testng.classpath" value="C:\Program Files (x86)\NetBeans 8.0.2\platform\modules\ext\testng-6.8.1-dist.jar" />
     <property name="libs.absolutelayout.maven-pom" value="" />
     <property name="ant.java.version" value="1.8" />
-    <property name="java.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_60\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Skype\Phone\;." />
+    <property name="java.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_60\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\oraclexe\app\oracle\product\11.2.0\server\bin;;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Skype\Phone\;." />
     <property name="javadoc.author" value="false" />
     <property name="java.util.logging.config.class" value="org.netbeans.core.startup.TopLogging" />
     <property name="libs.spring-framework400.src" value="" />
@@ -366,14 +366,44 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="javafx.deploy.installpermanently" value="false" />
   </properties>
-  <testcase classname="stamboom.storage.DatabaseTest" name="testLoadFromDataBase" time="0.323">
+  <testcase classname="stamboom.storage.DatabaseTest" name="testLoadFromDataBase" time="0.485">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at stamboom.storage.DatabaseTest.testLoadFromDataBase(DatabaseTest.java:88)
 </error>
   </testcase>
-  <testcase classname="stamboom.storage.DatabaseTest" name="testSaveToDatabase" time="0.115" />
+  <testcase classname="stamboom.storage.DatabaseTest" name="testSaveToDatabase" time="1.703" />
   <system-out><![CDATA[Database connected!
 Database connected!
+Query Persoon
+
+INSERT INTO `personen2` (`persoonsNummer`,`achternaam`,`voornamen`,`tussenvoegsel`,`geboortedatum`,`geboorteplaats`,`geslacht`,`ouders`) VALUES ('1','Swinkels','T J','van der','103-04-1971','Venlo','V',NULL);
+
+Query Insterted
+Query Persoon
+
+INSERT INTO `personen2` (`persoonsNummer`,`achternaam`,`voornamen`,`tussenvoegsel`,`geboortedatum`,`geboorteplaats`,`geslacht`,`ouders`) VALUES ('2','Swinkels','Piet','','113-04-1950','Uden','M',NULL);
+
+Query Insterted
+Query Persoon
+
+INSERT INTO `personen2` (`persoonsNummer`,`achternaam`,`voornamen`,`tussenvoegsel`,`geboortedatum`,`geboorteplaats`,`geslacht`,`ouders`) VALUES ('3','Vries','Teuntje','de','125-05-1949','Venlo','V',NULL);
+
+Query Insterted
+Query Persoon
+
+INSERT INTO `personen2` (`persoonsNummer`,`achternaam`,`voornamen`,`tussenvoegsel`,`geboortedatum`,`geboorteplaats`,`geslacht`,`ouders`) VALUES ('4','Swinkels','Tom Jacobus','','103-04-1971','Breda','M',NULL);
+
+Query Insterted
+Query Persoon
+
+INSERT INTO `personen2` (`persoonsNummer`,`achternaam`,`voornamen`,`tussenvoegsel`,`geboortedatum`,`geboorteplaats`,`geslacht`,`ouders`) VALUES ('5','Bok','Anja','de','157-06-1972','Bakel','V',NULL);
+
+Query Insterted
+Query Gezin
+
+INSERT INTO `Gezinnen2`(`gezinsNummer`,`ouder1`,`ouder2`,`huwelijksdatum`,`scheidingsdatum`) VALUES ('1','2','3','143-05-1970','309-11-1985');
+
+com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`stamboom`.`gezinnen2`, CONSTRAINT `gezinnen2_ibfk_1` FOREIGN KEY (`ouder1`) REFERENCES `personen` (`persoonsNummer`) ON DELETE CASCADE)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

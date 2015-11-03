@@ -132,81 +132,180 @@ public class DatabaseMediator implements IStorageMediator {
     @Override
     public void save(Administratie admin) throws IOException {
         //todo opgave 4 
-        try{
-        Statement statement;
-
-        conn = getConnection();
-
-        statement = conn.createStatement();
-
-        // Clear database
-        statement.execute("TRUNCATE PERSONEN;");
-        statement.execute("TRUNCATE GEZINNEN");
-        
-        for(Persoon persoon: admin.getPersonen())
+//        try{
+//        Statement statement;
+//
+//        conn = getConnection();
+//
+//        statement = conn.createStatement();
+//
+//        // Clear database
+//        statement.execute("TRUNCATE PERSONEN;");
+//        statement.execute("TRUNCATE GEZINNEN");
+//        
+//        for(Persoon persoon: admin.getPersonen())
+//        {
+//            PreparedStatement preparedStatement = conn.prepareStatement(
+//                    "INSERT INTO PERSONEN(" +
+//                            "persoonsNummer," +
+//                            "achternaam," +
+//                            "voornamen," +
+//                            "tussenvoegsel," +
+//                            "geboortedatum," +
+//                            "geboorteplaats," +
+//                            "geslacht," +
+//                            "ouders)" +
+//                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+//
+//            preparedStatement.setInt(1, persoon.getNr());
+//            preparedStatement.setString(2, persoon.getAchternaam());
+//            preparedStatement.setString(3, persoon.getVoornamen());
+//            preparedStatement.setString(4, persoon.getTussenvoegsel());
+//            preparedStatement.setDate(5, new java.sql.Date(persoon.getGebDat().getTimeInMillis()));
+//            preparedStatement.setString(6, persoon.getGebPlaats());
+//            preparedStatement.setString(7, persoon.getGeslacht().toString());
+//
+//            if(persoon.getOuderlijkGezin() != null)
+//                preparedStatement.setInt(8, persoon.getOuderlijkGezin().getNr());
+//            else
+//                preparedStatement.setString(8, null);
+//
+//            preparedStatement.execute();
+//        }
+//        
+//        for (Gezin g : admin.getGezinnen()) {
+//            PreparedStatement preparedStatement = conn.prepareStatement(
+//                    "INSERT INTO GEZINNEN(" +
+//                            "id," +
+//                            "ouder1," +
+//                            "ouder2," +
+//                            "huwelijksdatum," +
+//                            "scheidingsDatum)" +
+//                            "VALUES(?, ?, ?, ?, ?)");
+//
+//            preparedStatement.setInt(1, g.getNr());
+//            preparedStatement.setInt(2, g.getOuder1().getNr());
+//
+//            if (g.getOuder2() == null)
+//                preparedStatement.setString(3, null);
+//            else
+//                preparedStatement.setInt(3, g.getOuder2().getNr());
+//
+//            if (g.getHuwelijksdatum() == null)
+//                preparedStatement.setString(4, null);
+//            else
+//                preparedStatement.setDate(4, new java.sql.Date(g.getHuwelijksdatum().getTimeInMillis()));
+//
+//            if (g.getScheidingsdatum() == null)
+//                preparedStatement.setString(5, null);
+//            else
+//                preparedStatement.setDate(5, new java.sql.Date(g.getScheidingsdatum().getTimeInMillis()));
+//
+//            preparedStatement.execute();
+//        }
+        try
         {
-            PreparedStatement preparedStatement = conn.prepareStatement(
-                    "INSERT INTO PERSONEN(" +
-                            "persoonsNummer," +
-                            "achternaam," +
-                            "voornamen," +
-                            "tussenvoegsel," +
-                            "geboortedatum," +
-                            "geboorteplaats," +
-                            "geslacht," +
-                            "ouders)" +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-
-            preparedStatement.setInt(1, persoon.getNr());
-            preparedStatement.setString(2, persoon.getAchternaam());
-            preparedStatement.setString(3, persoon.getVoornamen());
-            preparedStatement.setString(4, persoon.getTussenvoegsel());
-            preparedStatement.setDate(5, new java.sql.Date(persoon.getGebDat().getTimeInMillis()));
-            preparedStatement.setString(6, persoon.getGebPlaats());
-            preparedStatement.setString(7, persoon.getGeslacht().toString());
-
-            if(persoon.getOuderlijkGezin() != null)
-                preparedStatement.setInt(8, persoon.getOuderlijkGezin().getNr());
-            else
-                preparedStatement.setString(8, null);
-
-            preparedStatement.execute();
-        }
-        
-        for (Gezin g : admin.getGezinnen()) {
-            PreparedStatement preparedStatement = conn.prepareStatement(
-                    "INSERT INTO GEZINNEN(" +
-                            "id," +
-                            "ouder1," +
-                            "ouder2," +
-                            "huwelijksdatum," +
-                            "scheidingsDatum)" +
-                            "VALUES(?, ?, ?, ?, ?)");
-
-            preparedStatement.setInt(1, g.getNr());
-            preparedStatement.setInt(2, g.getOuder1().getNr());
-
-            if (g.getOuder2() == null)
-                preparedStatement.setString(3, null);
-            else
-                preparedStatement.setInt(3, g.getOuder2().getNr());
-
-            if (g.getHuwelijksdatum() == null)
-                preparedStatement.setString(4, null);
-            else
-                preparedStatement.setDate(4, new java.sql.Date(g.getHuwelijksdatum().getTimeInMillis()));
-
-            if (g.getScheidingsdatum() == null)
-                preparedStatement.setString(5, null);
-            else
-                preparedStatement.setDate(5, new java.sql.Date(g.getScheidingsdatum().getTimeInMillis()));
-
-            preparedStatement.execute();
-        }
-        }
-        catch(Exception ex){
+            SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
+            conn = getConnection();
+            for (Persoon huidig: admin.getPersonen()) 
+            {                               
+                
+                statement = conn.createStatement();
+                
+                int nr = huidig.getNr();
+                String Voornaam = huidig.getVoornamen();
+                String Achternaam = huidig.getAchternaam();
+                String Tussenvoegsel = huidig.getTussenvoegsel();
+                
+                if (Tussenvoegsel.isEmpty()) {
+                    Tussenvoegsel = "";
+                }
+                
+                String Datum = format.format(huidig.getGebDat().getTime());
+                String GebPlaats = huidig.getGebPlaats();
+                String Geslacht = huidig.getGeslacht().name().substring(0,1);
+           
+                String SQL = "INSERT INTO `personen2` (`persoonsNummer`,`achternaam`,`voornamen`,`tussenvoegsel`,`geboortedatum`,`geboorteplaats`,`geslacht`,`ouders`) VALUES ('"+nr+"','"+Achternaam+"','"+Voornaam+"','"+Tussenvoegsel+"','"+Datum+"','"+GebPlaats+"','"+Geslacht+"',NULL);";
+                
+                System.out.println("Query Persoon\r\n");
+                System.out.println(SQL + "\r\n");
+                statement.executeUpdate(SQL);
+                
+                System.out.println("Query Insterted");
+            }
             
+            for (Gezin huidig: admin.getGezinnen()) 
+            {
+                //prepStatement = conn.prepareStatement("INSERT INTO GEZINNEN VALUES (?,?,?,?,?)");
+                statement = conn.createStatement();
+                
+                int nr = huidig.getNr();
+                int ouder1nr;
+                int ouder2nr;
+                String huwelijk = "";
+                String scheiding = "";
+                
+                ouder1nr = huidig.getOuder1().getNr();
+                
+                if(huidig.getOuder2() == null){
+                    ouder2nr = -1;
+                }
+                else{
+                    ouder2nr = huidig.getOuder2().getNr();
+                }
+
+                if (huidig.getHuwelijksdatum() != null) 
+                {
+                    huwelijk = format.format(huidig.getHuwelijksdatum().getTime());
+                }
+                
+                if (huidig.getScheidingsdatum() != null) 
+                {
+                    scheiding = format.format(huidig.getScheidingsdatum().getTime());
+                }
+                
+                String SQL = "INSERT INTO `Gezinnen2`(`gezinsNummer`,`ouder1`,`ouder2`,`huwelijksdatum`,`scheidingsdatum`) VALUES ('"+nr+"','"+ouder1nr+"','"+ouder2nr+"','"+huwelijk+"','"+scheiding+"');";
+                
+                System.out.println("Query Gezin\r\n");
+                System.out.println(SQL + "\r\n");
+                statement.executeUpdate(SQL);
+                System.out.println("Query Insterted");
+            }
+             
+            for (Persoon huidig: admin.getPersonen()) 
+            {
+                if (huidig.getOuderlijkGezin() != null) 
+                {
+                    if (huidig.getOuderlijkGezin() != null) 
+                    {
+                        statement = conn.createStatement();
+                        
+                        //prepStatement = conn.prepareStatement("UPDATE PERSONEN SET OUDERS = ? WHERE PERSOONSNUMMER = ?");
+                        
+                        int ouderlijkGezin = huidig.getOuderlijkGezin().getNr();
+                        int nr = huidig.getNr();
+                        
+                        String SQL = "UPDATE `Personen2` SET `ouders`='"+ouderlijkGezin+"' WHERE `PersoonsNummer`= '"+nr+"' ;";
+                        
+                        System.out.println("Query Update Persoon\r\n");
+                        System.out.println(SQL + "\r\n");
+                        statement.executeUpdate(SQL);
+                        System.out.println("Query Insterted");
+                    }
+                }
+            }
+            
+            JOptionPane.showConfirmDialog(null, "Saving completed");
         }
+        catch (SQLException ex)
+        {
+            System.out.print(ex + "\r\n");
+            JOptionPane.showConfirmDialog(null, "Saving failed.");
+        }
+//        }
+//        catch(Exception ex){
+//            
+//        }
         finally{
            closeConnection();
        }
