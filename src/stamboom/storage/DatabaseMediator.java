@@ -203,8 +203,11 @@ public class DatabaseMediator implements IStorageMediator {
 //
 //            preparedStatement.execute();
 //        }
+          
         try
         {
+            statement.execute("delete table  PERSONEN2;");
+          statement.execute("delete table GEZINNEN2;");
             SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");
             conn = getConnection();
             for (Persoon huidig: admin.getPersonen()) 
@@ -289,7 +292,8 @@ public class DatabaseMediator implements IStorageMediator {
                         
                         System.out.println("Query Update Persoon\r\n");
                         System.out.println(SQL + "\r\n");
-                        statement.executeUpdate(SQL);
+                        //statement.executeUpdate(SQL);
+//                        statement.executeQuery(SQL);
                         System.out.println("Query Insterted");
                     }
                 }
