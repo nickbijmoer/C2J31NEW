@@ -114,8 +114,21 @@ public class StamboomController {
      */
     public void saveToDatabase() throws IOException {
         //todo opgave 4
-         if(this.storageMediator == null)
+//         if(this.storageMediator == null)
+//        {
+//            Properties p = new Properties();
+//
+//            FileInputStream fin = new FileInputStream("database.properties");
+//
+//            p.load(fin);
+//
+//            DatabaseMediator databaseMediator = new DatabaseMediator(p);
+//
+//            databaseMediator.save(admin);
+//        }
+        if(this.storageMediator == null)
         {
+            
             Properties p = new Properties();
 
             FileInputStream fin = new FileInputStream("database.properties");

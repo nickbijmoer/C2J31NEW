@@ -59,6 +59,7 @@ public class StamboomFXController extends StamboomController implements Initiali
     @FXML ListView lvAlsOuderBetrokkenBij;
     @FXML Button btStamboom;
     @FXML TextArea taStamboom;
+    @FXML Button btnDBTest;
     
     //INVOER PERSOON
     @FXML TextField tfVoornaamIN;
@@ -559,6 +560,16 @@ public class StamboomFXController extends StamboomController implements Initiali
 
     private Stage getStage() {
         return (Stage) menuBar.getScene().getWindow();
+    }
+    
+    public void DBTest(){
+        try{
+        saveToDatabase();
+        }
+        catch(Exception ex)
+        {
+            
+        }
     }
 
 }

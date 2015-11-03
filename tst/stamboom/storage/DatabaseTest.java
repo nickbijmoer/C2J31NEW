@@ -72,7 +72,7 @@ public class DatabaseTest {
 
         Gezin pietAlleen = adm.addOngehuwdGezin(piet1, null);
 
-        assertEquals("aantal personen onjuist", 4, adm.aantalGeregistreerdePersonen());
+        assertEquals("aantal personen onjuist", 4 + 1, adm.aantalGeregistreerdePersonen());
         assertEquals("aantal gezinnen onjuist", 3, adm.aantalGeregistreerdeGezinnen());
 
         controller.saveToDatabase();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="2" failures="0" hostname="DellFish-Laptop" name="stamboom.storage.DatabaseTest" skipped="0" tests="2" time="0.265" timestamp="2015-11-02T22:13:50">
+<testsuite errors="1" failures="0" hostname="DellFish-Laptop" name="stamboom.storage.DatabaseTest" skipped="0" tests="2" time="0.503" timestamp="2015-11-03T00:30:21">
   <properties>
     <property name="netbeans.autoupdate.country" value="US" />
     <property name="javafx.binarycss" value="false" />
@@ -49,7 +49,7 @@
     <property name="user.name" value="Bart" />
     <property name="copylibs.rebase" value="true" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner stamboom.storage.DatabaseTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\test\results\TEST-stamboom.storage.DatabaseTest.xml crashfile=C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\junitvmwatcher6046550583259231654.properties propsfile=C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\junit633507174933489379.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner stamboom.storage.DatabaseTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\test\results\TEST-stamboom.storage.DatabaseTest.xml crashfile=C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\junitvmwatcher85857474019353616.properties propsfile=C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\build\junit1315662188632420120.properties" />
     <property name="auxiliary.org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.wrapAnnotations" value="WRAP_NEVER" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="netbeans.accept_license_class" value="org.netbeans.license.AcceptLicense" />
@@ -88,7 +88,7 @@
     <property name="javac.debug" value="true" />
     <property name="javadoc.splitindex" value="true" />
     <property name="file.separator" value="\" />
-    <property name="javac.includesfile.binary" value="C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\null191854380" />
+    <property name="javac.includesfile.binary" value="C:\Users\Bart.DellFish-Laptop\Documents\GitHub\C2J31NEW\null123502912" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="mkdist.disabled" value="false" />
     <property name="javac.test.processorpath" value="C:\Program Files (x86)\NetBeans 8.0.2\ide\modules\ext\mysql-connector-java-5.1.23-bin.jar:C:\Program Files (x86)\NetBeans 8.0.2\platform\modules\ext\junit-4.10.jar:C:\Program Files (x86)\Java\jdk1.8.0_60\jre/lib/javaws.jar:C:\Program Files (x86)\Java\jdk1.8.0_60\jre/lib/deploy.jar:C:\Program Files (x86)\Java\jdk1.8.0_60\jre/lib/plugin.jar:build/classes" />
@@ -366,28 +366,14 @@
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
     <property name="javafx.deploy.installpermanently" value="false" />
   </properties>
-  <testcase classname="stamboom.storage.DatabaseTest" name="testLoadFromDataBase" time="0.187">
+  <testcase classname="stamboom.storage.DatabaseTest" name="testLoadFromDataBase" time="0.323">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
-	at stamboom.storage.DatabaseMediator.closeConnection(DatabaseMediator.java:320)
-	at stamboom.storage.DatabaseMediator.configure(DatabaseMediator.java:261)
-	at stamboom.storage.DatabaseMediator.&lt;init&gt;(DatabaseMediator.java:34)
-	at stamboom.controller.StamboomController.loadFromDatabase(StamboomController.java:105)
-	at stamboom.storage.DatabaseTest.testLoadFromDataBase(DatabaseTest.java:85)
+	at stamboom.storage.DatabaseTest.testLoadFromDataBase(DatabaseTest.java:88)
 </error>
   </testcase>
-  <testcase classname="stamboom.storage.DatabaseTest" name="testSaveToDatabase" time="0.0">
-    <error type="java.lang.NullPointerException">java.lang.NullPointerException
-	at stamboom.storage.DatabaseMediator.closeConnection(DatabaseMediator.java:320)
-	at stamboom.storage.DatabaseMediator.configure(DatabaseMediator.java:261)
-	at stamboom.storage.DatabaseMediator.&lt;init&gt;(DatabaseMediator.java:34)
-	at stamboom.controller.StamboomController.saveToDatabase(StamboomController.java:125)
-	at stamboom.storage.DatabaseTest.testSaveToDatabase(DatabaseTest.java:78)
-</error>
-  </testcase>
-  <system-out><![CDATA[Connection failed.
-Connection could not be made.
-Connection failed.
-Connection could not be made.
+  <testcase classname="stamboom.storage.DatabaseTest" name="testSaveToDatabase" time="0.115" />
+  <system-out><![CDATA[Database connected!
+Database connected!
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

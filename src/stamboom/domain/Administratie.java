@@ -38,7 +38,12 @@ public class Administratie implements Serializable{
         observablePersonen = observableList(personen);
         gezinnenObservable = observableList(gezinnen);
         this.nextGezinsNr = 1;
-        this.nextPersNr = 1;        
+        this.nextPersNr = 1; 
+        
+        addPersoon(Geslacht.VROUW, new String[]{"t", "J"}, "sWinkelS",
+                "VaN deR", new GregorianCalendar(1971, Calendar.APRIL, 13), "venLO",
+                null);
+        
     }
 
     //**********************methoden****************************************
